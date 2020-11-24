@@ -1,0 +1,58 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+//Based on code from following this tutorial https://www.youtube.com/watch?v=BYL6JtUdEY0
+public class Projectile : MonoBehaviour
+{
+    public float delay = 3.0f;
+    public float blastRadius = 5.0f;
+    public float blastForce = 2000.0f;
+    public GameObject explosionEffect;
+    public AudioClip explosionAudio;
+
+    private float countdown;
+    private bool exploded;
+
+    void Start()
+    {
+        countdown = delay;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        countdown -= Time.deltaTime;
+        if (countdown <= 0.0f && !exploded)
+        {
+            Explode();
+            exploded = true;
+        }
+    }
+
+    void Explode()
+    {
+        Debug.Log("Projectile exploded.");
+
+        //Show explosion effect
+        Instantiate(explosionEffect, transform.position, transform.rotation);
+
+        //Play explosion audio
+        AudioSource.PlayClipAtPoint(explosionAudio, transform.position);
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, blastRadius);
+
+        foreach (Collider nearbyObject in colliders)
+        {
+            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddExplosionForce(blastForce, transform.position, blastRadius);
+            }
+        }
+        //Affect nearby objects
+        
+        Destroy(gameObject);
+    }
+}
