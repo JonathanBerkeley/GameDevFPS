@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0e36704ec420947ac74a87532787f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 3
-  blastRadius: 5
-  blastForce: 2000
+  delay: 5
+  blastRadius: 10
+  blastForce: 2500
   explosionEffect: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
     type: 3}
   explosionAudio: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
@@ -25,10 +25,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 973702706, guid: c2af6a63ac9739349996e5c928887d32, type: 3}
+      propertyPath: m_Constraints
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 973702706, guid: c2af6a63ac9739349996e5c928887d32, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 973702706, guid: c2af6a63ac9739349996e5c928887d32, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1544413192433984045, guid: c2af6a63ac9739349996e5c928887d32,
         type: 3}
       propertyPath: m_Name
-      value: rocket
+      value: missile_e
       objectReference: {fileID: 0}
     - target: {fileID: 2172154701225932951, guid: c2af6a63ac9739349996e5c928887d32,
         type: 3}

@@ -34,15 +34,22 @@ public class RigidMove : MonoBehaviour
 
     private bool IsGrounded()
     {
-        //This will draw an invisible ray downwards, if it hits an object, the player is grounded.
+        //Ignores rocket layer to prevent using rocket to reset jump
+        //Bit shifts the index of layer 10 to get a bit mask
+        int rocketLayerMask = 1 << 10;
+        //Flips the bit mask to collide with everything except 10
+        rocketLayerMask = ~rocketLayerMask;
+
+        //This will draw an invisible ray downwards, if it hits a non rocket object, the player is grounded.
         return Physics.Raycast(transform.position, Vector3.down,
-            _playerCollider.bounds.extents.y + groundedLeniancy);
+            _playerCollider.bounds.extents.y + groundedLeniancy, rocketLayerMask);
     }
 
     private void Movement()
     {
         if (IsGrounded())
         {
+            Debug.Log("Grounded");
             if (StaticInput.GetJumping())
             {
                 //Player jump by adding vertical force, accounting for player mass.

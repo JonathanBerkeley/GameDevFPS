@@ -15,7 +15,7 @@ public static class StaticInput
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
         jumping = Input.GetButton("Jump");
-        shooting = Input.GetButton("Fire1");
+        shooting = Input.GetButtonDown("Fire1");
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public static class StaticInput
     /// </summary>
     public static void UpdateShooting()
     {
-        shooting = Input.GetButton("Fire1");
+        shooting = Input.GetButtonDown("Fire1");
     }
 
     /// <summary>

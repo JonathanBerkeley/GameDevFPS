@@ -20,7 +20,6 @@ public class Projectile : MonoBehaviour
         countdown = delay;
     }
 
-    // Update is called once per frame
     void Update()
     {
         countdown -= Time.deltaTime;
@@ -54,9 +53,16 @@ public class Projectile : MonoBehaviour
         }
         
         
-
         //Cleanup for efficiency
         Destroy(explosionObject, 3);
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer != 9)
+        {
+            Explode();
+        }
     }
 }
