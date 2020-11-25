@@ -15,13 +15,6 @@ public class RigidMove : MonoBehaviour
     private Rigidbody _playerBody;
     private CapsuleCollider _playerCollider;
 
-    InputManager inputManager = new InputManager();
-
-    void Awake()
-    {
-        Debug.Log("Input Manager init - " + inputManager.DebugGetInputManagerCount());
-    }
-
     void Start()
     {
         originalMoveSpeed = moveSpeed;
@@ -36,7 +29,7 @@ public class RigidMove : MonoBehaviour
 
     void Update()
     {
-        inputManager.UpdatePlayerValues();
+        StaticInput.UpdatePlayerValues();
     }
 
     private bool IsGrounded()
@@ -45,60 +38,23 @@ public class RigidMove : MonoBehaviour
         return Physics.Raycast(transform.position, Vector3.down,
             _playerCollider.bounds.extents.y + groundedLeniancy);
     }
-    /*
-    private Vector2 getViewOrientation()
-    {
-        float lookAngle = orientation.transform.eulerAngles.y;
-        float moveAngle = Mathf.Atan2(rb.velocity.x, rb.velocity.z) * Mathf.Rad2Deg;
-
-        float u = Mathf.DeltaAngle(lookAngle, moveAngle);
-        float v = 90 - u;
-
-        float magnitue = rb.velocity.magnitude;
-        float yMag = magnitue * Mathf.Cos(u * Mathf.Deg2Rad);
-        float xMag = magnitue * Mathf.Cos(v * Mathf.Deg2Rad);
-
-        return new Vector2(xMag, yMag);
-    }
-    */
 
     private void Movement()
     {
         if (IsGrounded())
         {
-            if (inputManager.GetJumping())
+            if (StaticInput.GetJumping())
             {
                 //Player jump by adding vertical force, accounting for player mass.
                 _playerBody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
             }
         }
 
-        /*
-        //Old movement solution
-        float hMove = Input.GetAxis("Horizontal") * moveSpeed;
-        float vMove = Input.GetAxis("Vertical") * moveSpeed;
-        hMove *= Time.deltaTime;
-        vMove *= Time.deltaTime;
-
-        transform.Translate(hMove, 0, vMove);
-        */
-        
-        //New movement, aimed to fix the movement through walls problem
-        /*
-        float xMagnitude;
-        float yMagnitude;
-
-        Vector2 pMags = MagnitudeByOrientation();
-        //Unpack player magnitude vector
-        xMagnitude = pMags.x;
-        yMagnitude = pMags.y;
-        */
-
         _playerBody.AddForce(orientation.transform.forward
-            * inputManager.GetVertical() * moveSpeed * Time.deltaTime);
+            * StaticInput.GetVertical() * moveSpeed * Time.deltaTime);
 
         _playerBody.AddForce(orientation.transform.right
-            * inputManager.GetHorizontal() * moveSpeed * Time.deltaTime);
+            * StaticInput.GetHorizontal() * moveSpeed * Time.deltaTime);
         
     }
 

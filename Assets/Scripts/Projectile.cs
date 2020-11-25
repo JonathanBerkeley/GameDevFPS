@@ -36,13 +36,14 @@ public class Projectile : MonoBehaviour
         Debug.Log("Projectile exploded.");
 
         //Show explosion effect
-        Instantiate(explosionEffect, transform.position, transform.rotation);
+        GameObject explosionObject = (GameObject)Instantiate(explosionEffect, transform.position, transform.rotation);
 
         //Play explosion audio
         AudioSource.PlayClipAtPoint(explosionAudio, transform.position);
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, blastRadius);
 
+        //Affect nearby objects
         foreach (Collider nearbyObject in colliders)
         {
             Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
@@ -51,8 +52,11 @@ public class Projectile : MonoBehaviour
                 rb.AddExplosionForce(blastForce, transform.position, blastRadius);
             }
         }
-        //Affect nearby objects
         
+        
+
+        //Cleanup for efficiency
+        Destroy(explosionObject, 3);
         Destroy(gameObject);
     }
 }
