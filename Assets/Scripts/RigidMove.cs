@@ -49,7 +49,6 @@ public class RigidMove : MonoBehaviour
     {
         if (IsGrounded())
         {
-            Debug.Log("Grounded");
             if (StaticInput.GetJumping())
             {
                 //Player jump by adding vertical force, accounting for player mass.
