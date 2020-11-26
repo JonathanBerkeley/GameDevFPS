@@ -6,7 +6,7 @@ using UnityEngine;
 //N00181859
 public class SpawnHandler : MonoBehaviour
 {
-    [Range(0, 6)]
+    [Range(0, 7)]
     public int desiredBots;
     public GameObject[] players;
     public GameObject[] spawnLocations;
@@ -14,7 +14,7 @@ public class SpawnHandler : MonoBehaviour
 
     private List<GameObject> playersAsList;
     private int freeSpawns = 0;
-    private bool DEBUG_PLAYERS = true;
+    private bool DEBUG_PLAYERS = false;
 
     void Awake()
     {
@@ -42,6 +42,7 @@ public class SpawnHandler : MonoBehaviour
             spawnLocations = GameObject.FindGameObjectsWithTag("SpawnPoint");
         }
         freeSpawns = spawnLocations.Length;
+        Debug.Log(freeSpawns);
     }
     void Start()
     {
@@ -57,12 +58,14 @@ public class SpawnHandler : MonoBehaviour
                     + pwi.po.name);
             }
         }
-        
+
+        //Gets a shuffled array of spawn locations
+        GameObject[] randomLocations = RandomShuffle(spawnLocations);
 
         //Place all players/bots at spawn points
         foreach (GameObject player in playersAsList)
         {
-            GameObject initialSpawnPoint = RandomVacantSpawn();
+            GameObject initialSpawnPoint = RandomVacantSpawn(randomLocations);
             player.transform.position = initialSpawnPoint.transform.position;
             player.transform.rotation = initialSpawnPoint.transform.rotation;
             
@@ -71,12 +74,11 @@ public class SpawnHandler : MonoBehaviour
 
 
     //Returns gameobject to location of vacant spawn
-    private GameObject RandomVacantSpawn()
+    private GameObject RandomVacantSpawn(GameObject[] rl)
     {
         //Keeps track of how many spawns are left available
         --freeSpawns;
-        GameObject[] randomLocation = RandomShuffle(spawnLocations);
-        return randomLocation[freeSpawns];
+        return rl[freeSpawns];
     }
 
     //Array randomizer based on popular JavaScript script for Node.JS
@@ -99,6 +101,13 @@ public class SpawnHandler : MonoBehaviour
             ar[currentIndex] = ar[randomIndex];
             ar[currentIndex] = tmpObj;
         }
+
+        foreach (GameObject x in ar)
+        {
+            Debug.Log(x.name);
+        }
+
+
         return ar;
     }
 }

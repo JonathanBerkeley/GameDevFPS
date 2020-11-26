@@ -2027,7 +2027,7 @@ GameObject:
   m_Component:
   - component: {fileID: 392879768}
   m_Layer: 0
-  m_Name: SpawnLocation
+  m_Name: SpawnLocation5
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2057,7 +2057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 472571083}
   m_Layer: 0
-  m_Name: SpawnLocation
+  m_Name: SpawnLocation3
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2087,7 +2087,7 @@ GameObject:
   m_Component:
   - component: {fileID: 502102874}
   m_Layer: 0
-  m_Name: SpawnLocation
+  m_Name: SpawnLocation8
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2117,7 +2117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 694784480}
   m_Layer: 0
-  m_Name: SpawnLocation
+  m_Name: SpawnLocation7
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5195,7 +5195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1379034397}
   m_Layer: 0
-  m_Name: SpawnLocation
+  m_Name: SpawnLocation2
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6008,7 +6008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1577715589}
   m_Layer: 0
-  m_Name: SpawnLocation
+  m_Name: SpawnLocation6
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8651,7 +8651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1816737096}
   m_Layer: 0
-  m_Name: SpawnLocation
+  m_Name: SpawnLocation1
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8681,7 +8681,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1834878829}
   m_Layer: 0
-  m_Name: SpawnLocation
+  m_Name: SpawnLocation4
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9261,7 +9261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52d9c69e32c781429473c1e125f8422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredBots: 6
+  desiredBots: 7
   players: []
   spawnLocations: []
   playerPrefab: {fileID: 2756814791486521550, guid: 6aaa92aaaccaff4459ae48e87730bafd,
