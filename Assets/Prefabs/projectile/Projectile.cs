@@ -22,6 +22,7 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
+        //Countdown causes it to explode if flying into abyss too long
         countdown -= Time.deltaTime;
         if (countdown <= 0.0f && !exploded)
         {
@@ -32,8 +33,6 @@ public class Projectile : MonoBehaviour
 
     void Explode()
     {
-        Debug.Log("Projectile exploded.");
-
         //Show explosion effect
         GameObject explosionObject = (GameObject)Instantiate(explosionEffect, transform.position, transform.rotation);
 
@@ -51,7 +50,6 @@ public class Projectile : MonoBehaviour
                 rb.AddExplosionForce(blastForce, transform.position, blastRadius);
             }
         }
-        
         
         //Cleanup for efficiency
         Destroy(explosionObject, 3);
