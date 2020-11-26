@@ -6,13 +6,14 @@ using UnityEngine;
 //N00181859
 public class SpawnHandler : MonoBehaviour
 {
-    [Range(0, 7)]
+    [Range(0, 6)]
     public int desiredBots;
     public GameObject[] players;
     public GameObject[] spawnLocations;
     public GameObject playerPrefab;
 
     private List<GameObject> playersAsList;
+    private int freeSpawns = 0;
     private bool DEBUG_PLAYERS = true;
 
     void Awake()
@@ -40,6 +41,7 @@ public class SpawnHandler : MonoBehaviour
         {
             spawnLocations = GameObject.FindGameObjectsWithTag("SpawnPoint");
         }
+        freeSpawns = spawnLocations.Length;
     }
     void Start()
     {
@@ -60,16 +62,43 @@ public class SpawnHandler : MonoBehaviour
         //Place all players/bots at spawn points
         foreach (GameObject player in playersAsList)
         {
-            foreach (GameObject spawnPos in spawnLocations)
-            {
-                player.transform.position = spawnPos.transform.position;
-                player.transform.rotation = spawnPos.transform.rotation;
-            }
+            GameObject initialSpawnPoint = RandomVacantSpawn();
+            player.transform.position = initialSpawnPoint.transform.position;
+            player.transform.rotation = initialSpawnPoint.transform.rotation;
+            
         }
     }
 
-    void Update()
+
+    //Returns gameobject to location of vacant spawn
+    private GameObject RandomVacantSpawn()
     {
+        //Keeps track of how many spawns are left available
+        --freeSpawns;
+        GameObject[] randomLocation = RandomShuffle(spawnLocations);
+        return randomLocation[freeSpawns];
+    }
+
+    //Array randomizer based on popular JavaScript script for Node.JS
+    //which I converted to C# below. https://github.com/Daplie/knuth-shuffle
+    private GameObject[] RandomShuffle(GameObject[] ar)
+    {
+        int currentIndex = ar.Length;
+        int randomIndex = 0;
+        GameObject tmpObj;
         
+        while (0 != currentIndex)
+        {
+            randomIndex = Random.Range(0, currentIndex);
+            --currentIndex;
+
+            //Temporary object for swapping
+            tmpObj = ar[currentIndex];
+
+            //Swapped by random index
+            ar[currentIndex] = ar[randomIndex];
+            ar[currentIndex] = tmpObj;
+        }
+        return ar;
     }
 }
