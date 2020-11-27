@@ -9275,6 +9275,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 874298117, guid: c170b895f6c3cd8459c63d4388b79508, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 874298119, guid: c170b895f6c3cd8459c63d4388b79508, type: 3}
+      propertyPath: projectileSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082730338549997840, guid: c170b895f6c3cd8459c63d4388b79508,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5784837892874434391, guid: c170b895f6c3cd8459c63d4388b79508,
         type: 3}
       propertyPath: m_LocalPosition.x

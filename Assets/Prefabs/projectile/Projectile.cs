@@ -58,6 +58,21 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Explode();
+        //Prevents parent object from causing rocket to explode. Explodes otherwise
+        if (PlayerID.GetIDByGameObject(collision.gameObject) != this.GetParentID())
+        {
+            Explode();
+        }
+    }
+
+    //Handles ID for this object
+    private int id;
+    public void SetParentByID(int sid)
+    {
+        this.id = sid;
+    }
+    public int GetParentID()
+    {
+        return this.id;
     }
 }

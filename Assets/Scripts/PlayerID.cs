@@ -52,6 +52,22 @@ public static class PlayerID
         return null;
     }
 
+    public static int GetIDByGameObject(GameObject obj)
+    {
+        if (playerList == null)
+            return -1;
+
+        foreach (PlayersWithID pwi in playerList)
+        {
+            if (GameObject.ReferenceEquals(pwi.po, obj))
+            {
+                return pwi.id;
+            }
+        }
+
+        return -1;
+    }
+
     public static List<PlayersWithID> GetPlayersWithIDList()
     {
         return playerList;

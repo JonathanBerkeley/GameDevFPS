@@ -52,13 +52,18 @@ public class LaunchProjectile : MonoBehaviour
         //Plays audio for launch
         AudioSource.PlayClipAtPoint(soundEffects[0], transform.position);
 
-        //Creates rocket and gives it forward momentum
+        //Creates rocket at top of launcher
         GameObject projectile = Instantiate(projectilePrefab, adjustedPosition, transform.rotation);
+
+        //Gives the rocket an ID to parent so that it doesn't collide with owner of rocket
+        projectile.GetComponent<Projectile>()
+            .SetParentByID(
+                PlayerID.GetIDByGameObject(transform.parent.root.gameObject)
+            );
+
+        //Gives rocket momentum
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
-
-        Vector3 inheritParentVelocity = launchBlock.GetPointVelocity(launchBlock.transform.position);
-
-        rb.AddForce((transform.forward + inheritParentVelocity) * projectileSpeed, ForceMode.VelocityChange);
+        rb.AddForce(transform.forward * projectileSpeed, ForceMode.VelocityChange);
 
         //Cleanup for efficiency
         Destroy(launchObject, 2);
