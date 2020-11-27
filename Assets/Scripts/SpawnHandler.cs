@@ -18,6 +18,12 @@ public class SpawnHandler : MonoBehaviour
 
     void Awake()
     {
+        //Function called returns false if no custom bot option being used
+        if (SettingsData.GetCustomBotOption())
+        {
+            desiredBots = SettingsData.GetBotsDesired();
+        }
+
         if (players.Length == 0)
         {
             players = GameObject.FindGameObjectsWithTag("Player");

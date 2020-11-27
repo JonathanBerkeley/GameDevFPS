@@ -6,6 +6,7 @@ public static class StaticInput
     private static float vertical = 0.0f;
     private static bool jumping = false;
     private static bool shooting = false;
+    private static bool pause = false;
 
     /// <summary>
     /// Updates all the player input values
@@ -50,6 +51,11 @@ public static class StaticInput
         shooting = Input.GetButtonDown("Fire1");
     }
 
+    public static void UpdatePauseCheck()
+    {
+        pause = Input.GetButtonDown("Cancel");
+    }
+
     /// <summary>
     /// Gets the last saved horizontal value
     /// </summary>
@@ -84,5 +90,14 @@ public static class StaticInput
     public static bool GetShooting()
     {
         return shooting;
+    }
+
+    /// <summary>
+    /// Returns if player paused
+    /// </summary>
+    /// <returns> Boolean - Pause attempt from player </returns>
+    public static bool GetPaused()
+    {
+        return pause;
     }
 }
