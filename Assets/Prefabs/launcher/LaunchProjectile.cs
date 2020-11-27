@@ -55,7 +55,10 @@ public class LaunchProjectile : MonoBehaviour
         //Creates rocket and gives it forward momentum
         GameObject projectile = Instantiate(projectilePrefab, adjustedPosition, transform.rotation);
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * projectileSpeed, ForceMode.VelocityChange);
+
+        Vector3 inheritParentVelocity = launchBlock.GetPointVelocity(launchBlock.transform.position);
+
+        rb.AddForce((transform.forward + inheritParentVelocity) * projectileSpeed, ForceMode.VelocityChange);
 
         //Cleanup for efficiency
         Destroy(launchObject, 2);

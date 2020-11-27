@@ -11,10 +11,10 @@ public class SpawnHandler : MonoBehaviour
     public GameObject[] players;
     public GameObject[] spawnLocations;
     public GameObject playerPrefab;
+    public bool DEBUG_PLAYERS = false;
 
     private List<GameObject> playersAsList;
     private int freeSpawns = 0;
-    private bool DEBUG_PLAYERS = false;
 
     void Awake()
     {
@@ -42,7 +42,6 @@ public class SpawnHandler : MonoBehaviour
             spawnLocations = GameObject.FindGameObjectsWithTag("SpawnPoint");
         }
         freeSpawns = spawnLocations.Length;
-        Debug.Log(freeSpawns);
     }
     void Start()
     {
@@ -59,13 +58,13 @@ public class SpawnHandler : MonoBehaviour
             }
         }
 
-        //Gets a shuffled array of spawn locations
-        GameObject[] randomLocations = RandomShuffle(spawnLocations);
-
+        //Shuffles array of spawn locations
+        RandomShuffle(spawnLocations);
+        
         //Place all players/bots at spawn points
         foreach (GameObject player in playersAsList)
         {
-            GameObject initialSpawnPoint = RandomVacantSpawn(randomLocations);
+            GameObject initialSpawnPoint = RandomVacantSpawn(spawnLocations);
             player.transform.position = initialSpawnPoint.transform.position;
             player.transform.rotation = initialSpawnPoint.transform.rotation;
             
@@ -83,31 +82,17 @@ public class SpawnHandler : MonoBehaviour
 
     //Array randomizer based on popular JavaScript script for Node.JS
     //which I converted to C# below. https://github.com/Daplie/knuth-shuffle
-    private GameObject[] RandomShuffle(GameObject[] ar)
+    //https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+    private void RandomShuffle(GameObject[] ar)
     {
         int currentIndex = ar.Length;
-        int randomIndex = 0;
-        GameObject tmpObj;
-        
-        while (0 != currentIndex)
+
+        for (int i = 0; i < currentIndex; ++i)
         {
-            randomIndex = Random.Range(0, currentIndex);
-            --currentIndex;
-
-            //Temporary object for swapping
-            tmpObj = ar[currentIndex];
-
-            //Swapped by random index
-            ar[currentIndex] = ar[randomIndex];
-            ar[currentIndex] = tmpObj;
+            GameObject spawn = ar[i];
+            int randomIndex = Random.Range(i, currentIndex);
+            ar[i] = ar[randomIndex];
+            ar[randomIndex] = spawn;
         }
-
-        foreach (GameObject x in ar)
-        {
-            Debug.Log(x.name);
-        }
-
-
-        return ar;
     }
 }
