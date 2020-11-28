@@ -356,6 +356,18 @@ public class Packet : IDisposable
             throw new Exception("Could not read value of type 'string'!");
         }
     }
+
+    //Reads Vector3 from packet
+    public Vector3 ReadVector3(bool _moveReadPos = true)
+    {
+        return new Vector3(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
+    }
+
+    //Reads Quaternion from packet
+    public Quaternion ReadQuaternion(bool _moveReadPos = true)
+    {
+        return new Quaternion(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
+    }
     #endregion
 
     private bool disposed = false;

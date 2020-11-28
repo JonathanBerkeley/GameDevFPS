@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TqSbxlLFoUDWUUvjjNUPifmJFPhoEHRf05gDvIqKTJGkT5w1GnjhQZOV0kXGzTaaC4zmzOWayhyDttBjcqflHw==",
+  "dgSpecHash": "F3FwrC8pk4OflMdBAeRlSGMZy0RYqBqn5nmP4JbPY3d1rjduukwLjBnsAMgNidinUkTOVLEbnlzY1m1ku0qBRg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mainuser\\Desktop\\dev\\unity\\Server\\GameDevCAServer\\GameDevCAServer\\GameDevCAServer.csproj",
+  "projectFilePath": "C:\\Users\\mainuser\\Desktop\\dev\\unity\\GameDevCA\\Server\\GameDevCAServer\\GameDevCAServer\\GameDevCAServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mainuser\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
   ],
