@@ -11,6 +11,8 @@ public class MenuInit : MonoBehaviour
     public Button[] settingsButtons;
     public GameObject mainMenu;
     public GameObject settingsMenu;
+    public AudioClip clickAudio;
+    public float menuAudioVolume;
 
     //Colours for fog true/false
     private Color buttonColorFalse = new Color32(164, 35, 35, 200);
@@ -58,11 +60,13 @@ public class MenuInit : MonoBehaviour
 
     void PlayButtonClicked()
     {
+        MenuClickAudio();
         SceneManager.LoadScene("GameScene");
     }
 
     void SettingsButtonClicked()
     {
+        MenuClickAudio();
         mainMenu.SetActive(false);
         settingsMenu.SetActive(true);
     }
@@ -73,6 +77,7 @@ public class MenuInit : MonoBehaviour
     //This should also work for webplayer, whereas Application.Quit() does not.
     void ExitButtonClicked()
     {
+        MenuClickAudio();
         if (Application.isEditor)
         {
             Type t = null;
@@ -96,6 +101,7 @@ public class MenuInit : MonoBehaviour
 
     void BotsButtonClicked()
     {
+        MenuClickAudio();
         Text buttonText = settingsButtons[0].GetComponentInChildren<Text>();
         if (SettingsData.GetBotsDesired() < 7)
         {
@@ -109,7 +115,7 @@ public class MenuInit : MonoBehaviour
     
     void FogButtonClicked()
     {
-        
+        MenuClickAudio();
         //Flips current setting
         SettingsData.SetFogDesired(!(SettingsData.GetFogDesired()));
 
@@ -124,7 +130,18 @@ public class MenuInit : MonoBehaviour
 
     void BackButtonClicked()
     {
+        MenuClickAudio();
         settingsMenu.SetActive(false);
         mainMenu.SetActive(true);
+    }
+
+
+    //Audio on menu
+    void MenuClickAudio()
+    {
+        //Figures out menu camera position and plays sound at that location
+        Vector3 currentCameraPosition = Camera.main.transform.position;
+        currentCameraPosition = (0.9f * currentCameraPosition) + (0.1f * transform.position);
+        AudioSource.PlayClipAtPoint(clickAudio, currentCameraPosition, menuAudioVolume);
     }
 }
