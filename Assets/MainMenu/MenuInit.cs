@@ -167,7 +167,7 @@ public class MenuInit : MonoBehaviour
         mainMenu.SetActive(false);
         playMenu.SetActive(false);
 
-        SceneManager.LoadScene("Multiplayer");
+        SceneManager.LoadScene("MultiScene");
     }    
     
     void Singleplayer()

@@ -22,3 +22,4 @@ C:\Users\mainuser\Desktop\dev\unity\GameDevCA\Server\GameDevCAServer\GameDevCASe
 C:\Users\mainuser\Desktop\dev\unity\GameDevCA\Server\GameDevCAServer\GameDevCAServer\obj\Release\netcoreapp3.1\GameDevCAServer.dll
 C:\Users\mainuser\Desktop\dev\unity\GameDevCA\Server\GameDevCAServer\GameDevCAServer\obj\Release\netcoreapp3.1\GameDevCAServer.pdb
 C:\Users\mainuser\Desktop\dev\unity\GameDevCA\Server\GameDevCAServer\GameDevCAServer\obj\Release\netcoreapp3.1\GameDevCAServer.genruntimeconfig.cache
+C:\Users\mainuser\Desktop\dev\unity\GameDevCA\Server\GameDevCAServer\GameDevCAServer\obj\Release\netcoreapp3.1\GameDevCAServer.csprojAssemblyReference.cache
