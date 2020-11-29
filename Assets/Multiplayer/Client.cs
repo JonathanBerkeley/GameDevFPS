@@ -308,7 +308,7 @@ public class Client : MonoBehaviour
             instance.udp.Disconnect();
             instance.tcp.Disconnect();
 
-            //Resets dictionaries
+            //Reset dictionaries
             GameManager.instance.ResetDictionary();
         }
     }

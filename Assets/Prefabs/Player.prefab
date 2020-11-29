@@ -177,6 +177,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 50
+  adjustSpawnPositionY: 0.3
+  launchDelay: 1
+  launchEffect: {fileID: 0}
+  soundEffects: []
   projectilePrefab: {fileID: 1072696132443435241, guid: 872b541f9a655184bbbe61260d266e33,
     type: 3}
 --- !u!1 &2518414885325130144

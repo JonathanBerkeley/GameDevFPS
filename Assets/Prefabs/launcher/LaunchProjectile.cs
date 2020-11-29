@@ -16,11 +16,19 @@ public class LaunchProjectile : MonoBehaviour
     private GameObject launchObject;
     private bool canLaunch;
 
+    //For stats handling, ensuring player has ammo
+    private GameObject _player;
+    private PlayerStats _playerStats;
+
     void Start()
     {
         //Gets a reference to the block inside the launcher
         launchBlock = gameObject.GetComponent<Rigidbody>();
         launchBlock.transform.parent = transform.parent.transform;
+
+        //Gets a reference to the player
+        _player = gameObject.transform.root.gameObject;
+        _playerStats = _player.GetComponent<PlayerStats>();
 
         canLaunch = true;
     }
@@ -29,8 +37,17 @@ public class LaunchProjectile : MonoBehaviour
     {
         if (StaticInput.GetShooting() && canLaunch)
         {
-            FireProjectile();
-            StartCoroutine(PauseFiring());
+            //Embedded for efficiency
+            int _pAmmo = _playerStats.GetAmmo();
+            if (_pAmmo > 1)
+            {
+                FireProjectile();
+
+                //Sets the ammo to one less
+                _playerStats.SetAmmo(--_pAmmo);
+                StartCoroutine(PauseFiring());
+            }
+            
         }
 
         //Keeps the firing particle effects on the launcher regardless of speed
