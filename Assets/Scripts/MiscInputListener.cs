@@ -13,7 +13,11 @@ public class MiscInputListener : MonoBehaviour
         if (StaticInput.GetPaused())
         {
             SceneManager.LoadScene("MenuScene");
-            Client.instance.RequestClientDisconnect("BOTH");
+
+            if (Client.instance != null)
+            {
+                Client.instance.RequestClientDisconnect("BOTH");
+            }
         }
     }
 }

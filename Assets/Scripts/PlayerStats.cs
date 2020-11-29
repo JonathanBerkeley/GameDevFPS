@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //Allows null
+    public int? health;
+    public int? ammo;
+
+    private void Awake()
+    {
+        if (health == null) 
+        {
+            health = 100;
+        }
+        if (ammo == null)
+        {
+            ammo = 20;
+        }
+    }
+
+    private void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
+
 }
