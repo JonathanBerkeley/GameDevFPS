@@ -9,8 +9,12 @@ public class MenuInit : MonoBehaviour
 {
     public Button[] uiButtons;
     public Button[] settingsButtons;
+    public Button[] playButtons;
+
     public GameObject mainMenu;
     public GameObject settingsMenu;
+    public GameObject playMenu;
+
     public AudioClip clickAudio;
     public float menuAudioVolume;
 
@@ -22,10 +26,11 @@ public class MenuInit : MonoBehaviour
     {
         mainMenu.SetActive(true);
         settingsMenu.SetActive(false);
+        playMenu.SetActive(false);
 
+        //Sets up event listeners for main menu
         if (uiButtons.Length == 3)
         {
-            //Sets up event listeners
             Button btn = uiButtons[0].GetComponent<Button>();
             btn.onClick.AddListener(PlayButtonClicked);
             
@@ -36,6 +41,7 @@ public class MenuInit : MonoBehaviour
             btn.onClick.AddListener(ExitButtonClicked);
         }
 
+        //Set up listeners for settings menu
         if (settingsButtons.Length == 3)
         {
             Button sbtn = settingsButtons[0].GetComponent<Button>();
@@ -46,6 +52,19 @@ public class MenuInit : MonoBehaviour
             
             sbtn = settingsButtons[2].GetComponent<Button>();
             sbtn.onClick.AddListener(BackButtonClicked);
+        }
+
+        //Set up listeners for play menu
+        if (playButtons.Length == 3)
+        {
+            Button pbtn = playButtons[0].GetComponent<Button>();
+            pbtn.onClick.AddListener(Multiplayer);
+
+            pbtn = playButtons[1].GetComponent<Button>();
+            pbtn.onClick.AddListener(Singleplayer);
+
+            pbtn = playButtons[2].GetComponent<Button>();
+            pbtn.onClick.AddListener(BackButtonClicked);
         }
     }
 
@@ -61,13 +80,16 @@ public class MenuInit : MonoBehaviour
     void PlayButtonClicked()
     {
         MenuClickAudio();
-        SceneManager.LoadScene("GameScene");
+        mainMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        playMenu.SetActive(true);
     }
 
     void SettingsButtonClicked()
     {
         MenuClickAudio();
         mainMenu.SetActive(false);
+        playMenu.SetActive(false);
         settingsMenu.SetActive(true);
     }
 
@@ -132,7 +154,31 @@ public class MenuInit : MonoBehaviour
     {
         MenuClickAudio();
         settingsMenu.SetActive(false);
+        playMenu.SetActive(false);
         mainMenu.SetActive(true);
+    }
+
+    //Play menu buttons below
+    void Multiplayer()
+    {
+        MenuClickAudio();
+        //Hides all the menus
+        settingsMenu.SetActive(false);
+        mainMenu.SetActive(false);
+        playMenu.SetActive(false);
+
+        SceneManager.LoadScene("Multiplayer");
+    }    
+    
+    void Singleplayer()
+    {
+        MenuClickAudio();
+        //Hides all the menus
+        settingsMenu.SetActive(false);
+        mainMenu.SetActive(false);
+        playMenu.SetActive(false);
+
+        SceneManager.LoadScene("GameScene");
     }
 
 
@@ -144,4 +190,6 @@ public class MenuInit : MonoBehaviour
         currentCameraPosition = (0.9f * currentCameraPosition) + (0.1f * transform.position);
         AudioSource.PlayClipAtPoint(clickAudio, currentCameraPosition, menuAudioVolume);
     }
+
+    
 }
