@@ -14,7 +14,7 @@ namespace GameDevCAServer
             mainThread.Start();
 
 
-            Server.Start(8, 26950);
+            Server.Start(8, 24745);
         }
 
         private static void MainThread()
