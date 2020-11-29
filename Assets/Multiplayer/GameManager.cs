@@ -43,15 +43,23 @@ public class GameManager : MonoBehaviour
             _player = Instantiate(localPlayerPrefab
                 , spawnHandler.GetRandomSpawn(rl).transform.position
                 , _rotation);
+            PlayerID.AssignNewID(_player);
         } else
         {
             _player = Instantiate(playerPrefab
                 , spawnHandler.GetRandomSpawn(rl).transform.position
                 , _rotation);
+            PlayerID.AssignNewID(_player);
         }
 
         _player.GetComponent<PlayerManager>().id = _id;
         _player.GetComponent<PlayerManager>().username = _username;
         players.Add(_id, _player.GetComponent<PlayerManager>());
+    }
+
+    //Resets player list on disconnect
+    public void ResetDictionary()
+    {
+        players = new Dictionary<int, PlayerManager>();
     }
 }

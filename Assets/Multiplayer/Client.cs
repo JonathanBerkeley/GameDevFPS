@@ -171,7 +171,7 @@ public class Client : MonoBehaviour
             return false;
         }
 
-        private void Disconnect()
+        public void Disconnect()
         {
             instance.Disconnect();
 
@@ -260,7 +260,7 @@ public class Client : MonoBehaviour
             });
         }
 
-        private void Disconnect()
+        public void Disconnect()
         {
             instance.Disconnect();
             endPoint = null;
@@ -292,5 +292,29 @@ public class Client : MonoBehaviour
 
             Debug.Log("Disconnected from server.");
         }
+    }
+
+    //For others scripts to request disconnect
+    public void RequestClientDisconnect(String type)
+    {
+        if (type == "UDP")
+        {
+            instance.udp.Disconnect();
+        } else if (type == "TCP")
+        {
+            instance.tcp.Disconnect();
+        } else
+        {
+            instance.udp.Disconnect();
+            instance.tcp.Disconnect();
+
+            //Resets dictionaries
+            GameManager.instance.ResetDictionary();
+        }
+    }
+
+    public bool GetClientConnected()
+    {
+        return this.isConnected;
     }
 }
