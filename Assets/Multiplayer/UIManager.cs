@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+    public Camera menuCamera;
     public GameObject startMenu;
     public InputField usernameField;
 
@@ -26,8 +27,12 @@ public class UIManager : MonoBehaviour
 
     public void ConnectToServer()
     {
+        //Disables menu and cameras
         startMenu.SetActive(false);
         usernameField.interactable = false;
+        menuCamera.enabled = false;
+
+        //Connects to server
         Client.instance.ConnectToServer();
     }
 }

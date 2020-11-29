@@ -101,4 +101,22 @@ public class SpawnHandler : MonoBehaviour
             ar[randomIndex] = spawn;
         }
     }
+
+    //Allows multiplayer scripts to get spawn locations
+    public GameObject[] GetSpawns()
+    {
+        return this.spawnLocations;
+    }
+
+    public GameObject[] GetRandomisedSpawns()
+    {
+        RandomShuffle(spawnLocations);
+        return this.spawnLocations;
+    }
+
+    public GameObject GetRandomSpawn(GameObject[] rl)
+    {
+        RandomShuffle(spawnLocations);
+        return RandomVacantSpawn(rl);
+    }
 }

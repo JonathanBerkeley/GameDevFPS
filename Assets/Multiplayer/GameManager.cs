@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
+    public GameObject gameLogic;
+
+    private SpawnHandler spawnHandler;
 
     private void Awake()
     {
@@ -24,17 +27,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        spawnHandler = gameLogic.GetComponent<SpawnHandler>();
+    }
+
 
     //This is used to handle all code related to spawning players
     public void SpawnPlayer(int _id, string _username, Vector3 _position, Quaternion _rotation)
     {
         GameObject _player;
+        GameObject[] rl = spawnHandler.GetRandomisedSpawns();
         if (_id == Client.instance.myId)
         {
-            _player = Instantiate(localPlayerPrefab, _position, _rotation);
+            _player = Instantiate(localPlayerPrefab
+                , spawnHandler.GetRandomSpawn(rl).transform.position
+                , _rotation);
         } else
         {
-            _player = Instantiate(playerPrefab, _position, _rotation);
+            _player = Instantiate(playerPrefab
+                , spawnHandler.GetRandomSpawn(rl).transform.position
+                , _rotation);
         }
 
         _player.GetComponent<PlayerManager>().id = _id;
