@@ -24,7 +24,7 @@ namespace GameDevCAServer
     public enum ClientPackets
     {
         welcomeReceived = 1,
-        playerMovement
+        playerData
         //udpTestReceived
     }
 

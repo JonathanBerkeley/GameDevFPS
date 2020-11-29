@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace GameDevCAServer
@@ -41,7 +42,7 @@ namespace GameDevCAServer
         private static void SendUDPDataToAll(Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 0; i <= Server.MaxPlayers; ++i)
+            for (int i = 1; i <= Server.MaxPlayers; ++i)
             {
                 Server.clients[i].udp.SendData(_packet);
             }
@@ -49,7 +50,7 @@ namespace GameDevCAServer
         private static void SendUDPDataToAll(int _exceptClient, Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 0; i <= Server.MaxPlayers; ++i)
+            for (int i = 1; i <= Server.MaxPlayers; ++i)
             {
                 if (i != _exceptClient)
                 {
@@ -92,6 +93,32 @@ namespace GameDevCAServer
                 _packet.Write(_player.rotation);
 
                 SendTCPData(_toClient, _packet);
+            }
+        }
+
+
+        //My methods for sending client computed data to other clients below
+        //Sends the players location to clients
+        public static void PlayerLocation(int _playerID, Vector3 _location)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
+            {
+                _packet.Write(_playerID);
+                _packet.Write(_location);
+
+                SendUDPDataToAll(_playerID, _packet);
+            }
+        }
+
+        //Sends the players rotation to clients
+        public static void PlayerRotation(int _playerID, Quaternion _rotation)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.playerRotation))
+            {
+                _packet.Write(_playerID);
+                _packet.Write(_rotation);
+
+                SendUDPDataToAll(_playerID, _packet);
             }
         }
         #endregion

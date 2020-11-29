@@ -28,6 +28,19 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    //My custom function for sending client computed data directly to server
+    //Instead of doing computation for player movement on the server
+    public static void PlayerData(Vector3 _location, Quaternion _rotation)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerData))
+        {
+            _packet.Write(_location);
+            _packet.Write(_rotation);
+
+            SendUDPData(_packet);
+        }
+    }
+
     /* For testing UDP
     public static void UDPTestReceived()
     {

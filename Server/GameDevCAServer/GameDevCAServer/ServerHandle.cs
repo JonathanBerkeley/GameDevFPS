@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Numerics;
 
 namespace GameDevCAServer
 {
@@ -17,6 +18,18 @@ namespace GameDevCAServer
                 Console.WriteLine($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
             }
             Server.clients[_fromClient].SendIntoGame(_username);
+        }
+
+
+        //This will handle the trusted client data and skip computation of player input on the server
+        public static void PlayerData(int _fromClient, Packet _packet)
+        {
+            Vector3 _playerLocation = _packet.ReadVector3();
+            Quaternion _playerRotation = _packet.ReadQuaternion();
+
+            //Trusting the data and sending it on to other clients
+            ServerSend.PlayerLocation(_fromClient, _playerLocation);
+            ServerSend.PlayerRotation(_fromClient, _playerRotation);
         }
 
         /* For testing UDP
