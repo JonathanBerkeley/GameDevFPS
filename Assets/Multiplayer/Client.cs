@@ -52,6 +52,14 @@ public class Client : MonoBehaviour
         tcp.Connect();
     }
 
+    public void ConnectToServer(string withIP)
+    {
+        this.ip = withIP;
+        InitializeClientData();
+        isConnected = true;
+        tcp.Connect();
+    }
+
     public class TCP
     {
         public TcpClient socket;
@@ -316,5 +324,12 @@ public class Client : MonoBehaviour
     public bool GetClientConnected()
     {
         return this.isConnected;
+    }
+
+
+    //For other scripts to set ip
+    public void SetIP(string newIP)
+    {
+        this.ip = newIP;
     }
 }

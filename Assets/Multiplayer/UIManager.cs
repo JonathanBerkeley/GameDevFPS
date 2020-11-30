@@ -9,7 +9,11 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public Camera menuCamera;
     public GameObject startMenu;
+    public InputField ipField;
     public InputField usernameField;
+
+    public Text ipText;
+    public Text unameText;
 
     private void Awake()
     {
@@ -27,12 +31,20 @@ public class UIManager : MonoBehaviour
 
     public void ConnectToServer()
     {
+        //Nothing was entered
+        if (ipText.text == "" || unameText.text == "")
+        {
+            Debug.Log("Client did not fill out forms");
+            return;
+        }
+
         //Disables menu and cameras
         startMenu.SetActive(false);
+        ipField.interactable = false;
         usernameField.interactable = false;
         menuCamera.enabled = false;
 
         //Connects to server
-        Client.instance.ConnectToServer();
+        Client.instance.ConnectToServer(ipText.text);
     }
 }
