@@ -31,7 +31,7 @@ public class BotController : MonoBehaviour
         if (moveAgain)
         {
             moveAgain = false;
-            StartCoroutine(NewDestination());
+            StartCoroutine(BotAI());
         }
 
         //Face player
@@ -48,8 +48,8 @@ public class BotController : MonoBehaviour
             );
     }
 
-    //Random movement
-    IEnumerator NewDestination()
+    //Random actions
+    IEnumerator BotAI()
     {
         rb.AddForce(Random.Range((0 - offsetAmount), (0 + offsetAmount))
             , 0

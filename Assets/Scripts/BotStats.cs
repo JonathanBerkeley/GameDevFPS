@@ -8,6 +8,7 @@ public class BotStats : MonoBehaviour
     public int ammo;
     public int health;
     public float respawnTimer;
+    public AudioClip[] deathSounds;
 
     private SpawnHandler spawnHandler;
     private bool awaitingRespawn;
@@ -93,6 +94,10 @@ public class BotStats : MonoBehaviour
 
     private void Die()
     {
+        //Play random death audio
+        int randomDeathSoundNum = (int)Random.Range(0, deathSounds.Length);
+        AudioSource.PlayClipAtPoint(deathSounds[randomDeathSoundNum], transform.position);
+
         gameObject.transform.position = new Vector3(0, -3000, 0);
         awaitingRespawn = true;
     }

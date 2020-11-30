@@ -131,6 +131,13 @@ MonoBehaviour:
   ammo: 80
   health: 100
   respawnTimer: 20
+  deathSounds:
+  - {fileID: 8300000, guid: 06884f3ebfb6f05488beccf9697ad10f, type: 3}
+  - {fileID: 8300000, guid: ede9bf28d0d4a1946ae67ca3fa4c939e, type: 3}
+  - {fileID: 8300000, guid: c86e035b8b83b454aa04dd14d1425598, type: 3}
+  - {fileID: 8300000, guid: dd92b7c0fffef2145a328703768b94e6, type: 3}
+  - {fileID: 8300000, guid: 03883ce47d8e37b41ac1333a1e4c9066, type: 3}
+  - {fileID: 8300000, guid: 2c56399eab6538c498d62dcb92bfb3ab, type: 3}
 --- !u!114 &5310719949202687637
 MonoBehaviour:
   m_ObjectHideFlags: 0
