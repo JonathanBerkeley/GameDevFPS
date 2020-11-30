@@ -5,27 +5,37 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    //Allows null
-    public int health;
+    //This class deals with the players stats such as health etc.
     public int ammo;
+    public int health;
 
-    public Text healthText;
+    public RawImage healthImage;
+    public Texture[] healthTextures;
     public Text ammoText;
-
-    private void Awake()
-    {
-    }
 
     private void Start()
     {
         //Sets the text to initial values
-        healthText.text = health.ToString();
         ammoText.text = ammo.ToString();
+        healthImage.texture = healthTextures[0];
     }
 
     private void Update()
     {
-        healthText.text = health.ToString();
+        if (health > 80)
+        {
+            healthImage.texture = healthTextures[0];
+        } else if (health > 60)
+        {
+            healthImage.texture = healthTextures[1];
+        } else if (health > 40)
+        {
+            healthImage.texture = healthTextures[2];
+        } else
+        {
+            healthImage.texture = healthTextures[3];
+        }
+
         ammoText.text = ammo.ToString();
     }
 
@@ -46,6 +56,11 @@ public class PlayerStats : MonoBehaviour
     public void SetAmmo(int am)
     {
         this.ammo = am;
+    }
+
+    public void IncreaseAmmo(int am)
+    {
+        this.ammo += am;
     }
 
 }
