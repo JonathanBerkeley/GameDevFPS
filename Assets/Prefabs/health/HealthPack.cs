@@ -6,7 +6,7 @@ public class HealthPack : MonoBehaviour
 {
     public int respawnDelay = 10;
     public float spinSpeed = 200.0f;
-    public float regenAmount = 100.0f;
+    public int regenAmount = 100;
     public AudioClip[] packAudio;
 
     // Update is called once per frame
@@ -21,7 +21,9 @@ public class HealthPack : MonoBehaviour
     {
         if (collision.gameObject.layer == 9)
         {
-            
+            //Increases the player's health that touches the health pack
+            collision.gameObject.GetComponent<PlayerStats>().IncreaseHealth(regenAmount);
+
             StartCoroutine(RespawnHealthPack());
             
         }

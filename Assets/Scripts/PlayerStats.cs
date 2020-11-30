@@ -63,4 +63,16 @@ public class PlayerStats : MonoBehaviour
         this.ammo += am;
     }
 
+    public void IncreaseHealth(int ht)
+    {
+        int calcHealth = this.health + ht;
+        if (calcHealth >= 100)
+        {
+            this.health = 100;
+        } else
+        {
+            this.health += ht;
+        }
+    }
+
 }

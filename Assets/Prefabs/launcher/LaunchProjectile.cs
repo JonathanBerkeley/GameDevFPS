@@ -39,7 +39,7 @@ public class LaunchProjectile : MonoBehaviour
         {
             //Embedded for efficiency
             int _pAmmo = _playerStats.GetAmmo();
-            if (_pAmmo > 1)
+            if (_pAmmo > 0)
             {
                 FireProjectile();
 
