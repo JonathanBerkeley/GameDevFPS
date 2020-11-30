@@ -23,7 +23,6 @@ public class PlayerStats : MonoBehaviour
     public Component[] disableOnRespawnAwait;
 
     private SpawnHandler spawnHandler;
-    private Button respawnButton;
     private bool awaitingRespawn;
     private float respawnCachedTimer;
 
@@ -37,7 +36,6 @@ public class PlayerStats : MonoBehaviour
 
         healthImage.texture = healthTextures[0];
         spawnHandler = gameLogic.GetComponent<SpawnHandler>();
-        respawnButton = deathPanel.GetComponent<Button>();
 
         //Used for respawn timer
         awaitingRespawn = false;

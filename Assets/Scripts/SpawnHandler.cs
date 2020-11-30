@@ -33,7 +33,15 @@ public class SpawnHandler : MonoBehaviour
 
         for (int i = 0; i < desiredBots; ++i)
         {
-            playersAsList.Add(Instantiate(playerPrefab, transform.position, transform.rotation));
+            try
+            {
+                playersAsList.Add(Instantiate(playerPrefab, transform.position, transform.rotation));
+            }
+            catch
+            {
+                //This is to catch errors when going to main menu while a bot is trying to spawn
+            }
+            
         }
 
         //Assign all the players an ID through static manager class

@@ -8339,7 +8339,7 @@ MonoBehaviour:
   desiredBots: 7
   players: []
   spawnLocations: []
-  playerPrefab: {fileID: 2756814791486521550, guid: 6aaa92aaaccaff4459ae48e87730bafd,
+  playerPrefab: {fileID: 2440620552001476137, guid: 495d691add1d45346a75c584dc61c4b0,
     type: 3}
   DEBUG_PLAYERS: 0
 --- !u!1 &2136115721

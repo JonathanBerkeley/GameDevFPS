@@ -91,6 +91,15 @@ public class Projectile : MonoBehaviour
                 catch
                 {
                     //Wasn't a player
+                    try
+                    {
+                        _playerHit.GetComponent<BotStats>().DecreaseHealth(_damage);
+                    }
+                    catch
+                    {
+                        //Wasn't a bot either!
+                    }
+                    
                 }
 
 
