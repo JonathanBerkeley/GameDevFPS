@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject startMenu;
     public InputField ipField;
     public InputField usernameField;
+    public GameObject playerUI;
 
     public Text ipText;
     public Text unameText;
@@ -46,5 +47,8 @@ public class UIManager : MonoBehaviour
 
         //Connects to server
         Client.instance.ConnectToServer(ipText.text);
+
+        //Shows player UI
+        playerUI.SetActive(true);
     }
 }

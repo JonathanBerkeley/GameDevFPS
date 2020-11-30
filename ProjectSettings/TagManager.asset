@@ -6,6 +6,12 @@ TagManager:
   tags:
   - SpawnPoint
   - PROP
+  - MP_UiCanvas
+  - MP_DeathPanel
+  - MP_HealthImage
+  - MP_AmmoText
+  - MP_GameLogic
+  - MP_RespawnText
   layers:
   - Default
   - TransparentFX

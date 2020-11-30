@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//Loosely based on code from following this tutorial https://www.youtube.com/watch?v=BYL6JtUdEY0
-//Though heavily modified
-public class Projectile : MonoBehaviour
+//Multiplayer variant of projectile script
+public class MultiplayerProjectile : MonoBehaviour
 {
     public float delay = 3.0f;
     public float blastRadius = 5.0f;
@@ -60,7 +58,7 @@ public class Projectile : MonoBehaviour
                 float distanceFromExplosion = Vector3.Distance(transform.position, rb.transform.position);
                 GameObject _playerHit = rb.transform.root.gameObject;
                 int _damage = 0;
-                
+
                 if (PlayerID.GetIDByGameObject(rb.gameObject) != this.id)
                 {
                     if (distanceFromExplosion < 2.0f)
@@ -79,15 +77,16 @@ public class Projectile : MonoBehaviour
                     {
                         _damage = 10;
                     }
-                    
-                } else
+
+                }
+                else
                 {
                     //Reduced damage for author of rocket to encourage rocket jumping
                     _damage = 5;
                 }
                 try
                 {
-                    _playerHit.GetComponent<PlayerStats>().DecreaseHealth(_damage);
+                    _playerHit.GetComponent<MultiplayerStats>().DecreaseHealth(_damage);
                 }
                 catch
                 {
@@ -100,14 +99,14 @@ public class Projectile : MonoBehaviour
                     {
                         //Wasn't a bot either!
                     }
-                    
+
                 }
 
 
                 //print(_playerHit.name + " was " + distanceFromExplosion + " from explosion and took " + _damage + " damage");
             }
         }
-        
+
         //Cleanup for efficiency
         Destroy(explosionObject, 3);
         Destroy(gameObject);
