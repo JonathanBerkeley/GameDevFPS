@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ClientHandle : MonoBehaviour
 {
+    public GameObject projectilePrefab;
     public static void Welcome(Packet _packet)
     {
         string _msg = _packet.ReadString();
@@ -44,6 +45,15 @@ public class ClientHandle : MonoBehaviour
         
         //Debug.Log("Rotation was read for player with ID " + _id + " : " + _rotation);
         GameManager.players[_id].transform.rotation = _rotation;
+    }
+
+    public static void ProjectileData(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Vector3 _location = _packet.ReadVector3();
+        Quaternion _rotation = _packet.ReadQuaternion();
+
+
     }
 
     /* For testing UDP

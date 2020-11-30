@@ -6,9 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
+    public static Dictionary<int, ProjectileManager> projectiles = new Dictionary<int, ProjectileManager>();
 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
+    public GameObject projectilePrefab;
     public GameObject gameLogic;
 
     private SpawnHandler spawnHandler;
@@ -57,9 +59,26 @@ public class GameManager : MonoBehaviour
         players.Add(_id, _player.GetComponent<PlayerManager>());
     }
 
+    public void SpawnProjectile(int _id, Vector3 _position, Quaternion _rotation)
+    {
+
+    }
+
     //Resets player list on disconnect
     public void ResetDictionary()
     {
         players = new Dictionary<int, PlayerManager>();
     }
+
+    /*
+    public void CreateProjectile(int _id, Vector3 _location, Quaternion _rotation)
+    {
+
+        GameObject projectile = Instantiate(projectilePrefab, _location, _rotation);
+
+        //Gives rocket momentum
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * 50.0f, ForceMode.VelocityChange);
+    }
+    */
 }

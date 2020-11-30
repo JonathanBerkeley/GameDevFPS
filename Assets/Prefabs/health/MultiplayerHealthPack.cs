@@ -24,8 +24,12 @@ public class MultiplayerHealthPack : MonoBehaviour
         if (collision.gameObject.layer == 9)
         {
             //Increases the player's health that touches the health pack
-            collision.gameObject.GetComponent<MultiplayerStats>().IncreaseHealth(regenAmount);
-
+            try
+            {
+                collision.gameObject.GetComponent<MultiplayerStats>().IncreaseHealth(regenAmount);
+            } catch
+            {
+            }
             StartCoroutine(RespawnHealthPack());
 
         }

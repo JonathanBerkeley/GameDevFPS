@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638699f1802a7254c914eb6232148289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 1879644738676734728}
 --- !u!114 &8364347169668045895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: 80
-  health: 5
+  health: 100
   respawnTimer: 10
   healthTextures:
   - {fileID: 2800000, guid: 76c15d06b36e25e4f980df49889df434, type: 3}

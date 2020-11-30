@@ -23,7 +23,10 @@ public class MultiplayerAmmoPack : MonoBehaviour
         if (collision.gameObject.layer == 9)
         {
             //Increases the player's ammo that touches the ammo box
-            collision.gameObject.GetComponent<MultiplayerStats>().IncreaseAmmo(resupplyAmount);
+            try 
+            {
+                collision.gameObject.GetComponent<MultiplayerStats>().IncreaseAmmo(resupplyAmount);
+            } catch { }
 
             StartCoroutine(RespawnAmmoPack());
         }

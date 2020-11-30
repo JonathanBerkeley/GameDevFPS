@@ -17,11 +17,21 @@ public class MultiplayerProjectile : MonoBehaviour
     private GameObject _self;
     private Rigidbody _selfBody;
 
+    //Multiplayer variables
+    private Vector3 location;
+    private Quaternion rotation;
     void Start()
     {
         _self = gameObject;
         _selfBody = _self.GetComponent<Rigidbody>();
         countdown = delay;
+    }
+
+    private void FixedUpdate()
+    {
+        location = gameObject.transform.position;
+        rotation = gameObject.transform.rotation;
+        SendProjectileDataToServer();
     }
 
     void Update()
@@ -129,5 +139,10 @@ public class MultiplayerProjectile : MonoBehaviour
     public int GetParentID()
     {
         return this.id;
+    }
+
+    private void SendProjectileDataToServer()
+    {
+        ClientSend.ProjectileLaunchData(location, rotation);
     }
 }
