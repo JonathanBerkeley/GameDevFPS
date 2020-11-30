@@ -4381,6 +4381,11 @@ PrefabInstance:
       propertyPath: ammoText
       value: 
       objectReference: {fileID: 1514044862}
+    - target: {fileID: 8012223374392381218, guid: a3bc4ec07890f39419a33e51af852a08,
+        type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3bc4ec07890f39419a33e51af852a08, type: 3}
 --- !u!1001 &1227804799

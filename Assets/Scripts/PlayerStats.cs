@@ -75,4 +75,13 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    public void DecreaseHealth(int ht)
+    {
+        this.health -= ht;
+        if (this.health < 1)
+        {
+            //Die code
+        }
+    }
+
 }

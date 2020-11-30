@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//Based on code from following this tutorial https://www.youtube.com/watch?v=BYL6JtUdEY0
+//Loosely based on code from following this tutorial https://www.youtube.com/watch?v=BYL6JtUdEY0
 public class Projectile : MonoBehaviour
 {
     public float delay = 3.0f;
@@ -12,11 +12,16 @@ public class Projectile : MonoBehaviour
     public GameObject explosionEffect;
     public AudioClip explosionAudio;
 
+    private int id;
     private float countdown;
     private bool exploded;
+    private GameObject _self;
+    private Rigidbody _selfBody;
 
     void Start()
     {
+        _self = gameObject;
+        _selfBody = _self.GetComponent<Rigidbody>();
         countdown = delay;
     }
 
@@ -41,13 +46,55 @@ public class Projectile : MonoBehaviour
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, blastRadius);
 
+
         //Affect nearby objects
         foreach (Collider nearbyObject in colliders)
         {
             Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (rb != null && rb != _selfBody)
             {
                 rb.AddExplosionForce(blastForce, transform.position, blastRadius);
+
+                //Explosion damage based on distance from explosion
+                float distanceFromExplosion = Vector3.Distance(transform.position, rb.transform.position);
+                GameObject _playerHit = rb.transform.root.gameObject;
+                int _damage = 0;
+                
+                if (PlayerID.GetIDByGameObject(rb.gameObject) != this.id)
+                {
+                    if (distanceFromExplosion < 2.0f)
+                    {
+                        _damage = 60;
+                    }
+                    else if (distanceFromExplosion < 5.0f)
+                    {
+                        _damage = 40;
+                    }
+                    else if (distanceFromExplosion < 7.0f)
+                    {
+                        _damage = 30;
+                    }
+                    else if (distanceFromExplosion < 15.0f)
+                    {
+                        _damage = 10;
+                    }
+                    
+                } else
+                {
+                    //Reduced damage for author of rocket to encourage rocket jumping
+                    _damage = 5;
+                }
+                try
+                {
+                    _playerHit.GetComponent<PlayerStats>().DecreaseHealth(_damage);
+                }
+                catch
+                {
+                    //Wasn't a player
+                }
+
+
+                //print(_playerHit.name + " was " + distanceFromExplosion + " from explosion and took " + _damage + " damage");
             }
         }
         
@@ -66,7 +113,6 @@ public class Projectile : MonoBehaviour
     }
 
     //Handles ID for this object
-    private int id;
     public void SetParentByID(int sid)
     {
         this.id = sid;
