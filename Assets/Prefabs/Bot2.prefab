@@ -146,6 +146,7 @@ MonoBehaviour:
   offsetAmount: 1700
   waitForNewDestination: 1
   jumpForce: 1000
+  botLauncher: {fileID: 2352542733424732294}
 --- !u!1 &2440620552128851281
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,6 +323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6274518603468718487}
   - component: {fileID: 6274518603468718489}
+  - component: {fileID: 2352542733424732294}
   m_Layer: 0
   m_Name: Rocketspawn
   m_TagString: Untagged
@@ -359,6 +361,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &2352542733424732294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6274518603468718484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542ec43e0f6a8ab4ba20a6da06d0e36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpeed: 50
+  adjustSpawnPositionY: 0
+  launchDelay: 0.7
+  launchEffect: {fileID: 1979124000536935517, guid: 12291b688c2c1014ea0f2d786f6c5946,
+    type: 3}
+  soundEffects:
+  - {fileID: 8300000, guid: 2dd85087250502746b493b2c1d4a2f3b, type: 3}
+  projectilePrefab: {fileID: 4091469008046142064, guid: 2ba44c75301f4584f9009762ccb78a09,
+    type: 3}
 --- !u!1001 &8241240200084045107
 PrefabInstance:
   m_ObjectHideFlags: 0

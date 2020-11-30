@@ -10,6 +10,7 @@ public class BotController : MonoBehaviour
     public float offsetAmount = 3.0f;
     public int waitForNewDestination = 10;
     public float jumpForce = 400.0f;
+    public BotLauncher botLauncher;
 
     private SpawnHandler spawnHandler;
     private Rigidbody rb;
@@ -60,7 +61,11 @@ public class BotController : MonoBehaviour
             rb.AddForce(0, jumpForce, 0);
         }
 
-        
+        //Randomally decide to shoot
+        if ((int)Random.Range(1, 4) == 3)
+        {
+            botLauncher.RequestShoot();
+        }
 
         yield return new WaitForSeconds(waitForNewDestination);
         moveAgain = true;
