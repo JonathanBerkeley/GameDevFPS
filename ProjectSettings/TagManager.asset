@@ -13,6 +13,7 @@ TagManager:
   - MP_GameLogic
   - MP_RespawnText
   - MP_DisableComponents
+  - SP_SpawnHandler
   layers:
   - Default
   - TransparentFX
