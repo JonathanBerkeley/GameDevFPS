@@ -16,8 +16,6 @@ public class MultiplayerStats : MonoBehaviour
 
     public Texture[] healthTextures;
 
-
-
     public Component[] disableOnRespawnAwait;
 
     private SpawnHandler spawnHandler;
@@ -34,6 +32,7 @@ public class MultiplayerStats : MonoBehaviour
 
     private int cachedAmmo;
     private int cachedHealth;
+    private HoldReferences _disabledComponents;
 
     private void Awake()
     {
@@ -67,6 +66,8 @@ public class MultiplayerStats : MonoBehaviour
         respawnCachedTimer = respawnTimer;
         cachedAmmo = ammo;
         cachedHealth = health;
+
+        _disabledComponents = GameObject.FindGameObjectWithTag("MP_DisableComponents").GetComponent<HoldReferences>();
 
     }
 
@@ -157,9 +158,19 @@ public class MultiplayerStats : MonoBehaviour
     private void Die()
     {
         gameObject.transform.position = new Vector3(0, -3000, 0);
-        deathPanel.SetActive(true);
         uiCanvas.SetActive(false);
-        respawnText = GameObject.FindGameObjectWithTag("MP_RespawnText").GetComponent<Text>();
+
+        /*
+        foreach (GameObject go in _disabledComponents.GetObjectReferences())
+        {
+            go.SetActive(true);
+        }
+        */
+
+        _disabledComponents.GetObjectReferenceByTag("MP_DeathPanel").SetActive(true);
+
+
+        respawnText = _disabledComponents.GetObjectReferenceByTag("MP_RespawnText").GetComponent<Text>();
 
         //Stops select scripts on player
         foreach (MonoBehaviour mb in disableOnRespawnAwait)
@@ -179,7 +190,14 @@ public class MultiplayerStats : MonoBehaviour
         this.ammo = cachedAmmo;
         awaitingRespawn = false;
         uiCanvas.SetActive(true);
-        deathPanel.SetActive(false);
+        /*
+        foreach (GameObject go in _disabledComponents.GetObjectReferences())
+        {
+            go.SetActive(false);
+        }
+        */
+
+        _disabledComponents.GetObjectReferenceByTag("MP_DeathPanel").SetActive(false);
 
         foreach (MonoBehaviour mb in disableOnRespawnAwait)
         {

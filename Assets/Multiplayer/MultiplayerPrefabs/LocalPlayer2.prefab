@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: 80
-  health: 100
+  health: 5
   respawnTimer: 10
   healthTextures:
   - {fileID: 2800000, guid: 76c15d06b36e25e4f980df49889df434, type: 3}
@@ -246,10 +246,10 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ffceb71af25a6aa4e92dd2f23c16b0ae, type: 3}
   - {fileID: 2800000, guid: 110ab5bc55677e7488e76dd0b07bdc78, type: 3}
   disableOnRespawnAwait:
-  - {fileID: 5302357253909606605}
-  - {fileID: 0}
   - {fileID: 5302357252993545043}
   - {fileID: 5302357252993545004}
+  - {fileID: 6834351985637191503}
+  - {fileID: 5302357253909606605}
 --- !u!1 &1879644738568863654
 GameObject:
   m_ObjectHideFlags: 0

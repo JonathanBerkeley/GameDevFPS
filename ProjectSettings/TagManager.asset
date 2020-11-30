@@ -12,6 +12,7 @@ TagManager:
   - MP_AmmoText
   - MP_GameLogic
   - MP_RespawnText
+  - MP_DisableComponents
   layers:
   - Default
   - TransparentFX
