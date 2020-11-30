@@ -119,4 +119,9 @@ public class SpawnHandler : MonoBehaviour
         RandomShuffle(spawnLocations);
         return RandomVacantSpawn(rl);
     }
+
+    public GameObject GetRandomGenericSpawn()
+    {
+        return GetRandomisedSpawns()[0];
+    }
 }

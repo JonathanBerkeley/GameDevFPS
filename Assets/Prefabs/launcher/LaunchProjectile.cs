@@ -72,6 +72,8 @@ public class LaunchProjectile : MonoBehaviour
         //Creates rocket at top of launcher
         GameObject projectile = Instantiate(projectilePrefab, adjustedPosition, transform.rotation);
 
+
+
         //Gives the rocket an ID to parent so that it doesn't collide with owner of rocket
         projectile.GetComponent<Projectile>()
             .SetParentByID(
