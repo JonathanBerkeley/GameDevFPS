@@ -1,2 +1,2 @@
-# GameDevFPS
-GameDevCA
+# Skyrocket
+A multiplayer unity game
