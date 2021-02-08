@@ -31,7 +31,7 @@ public class MultiplayerProjectile : MonoBehaviour
     {
         location = gameObject.transform.position;
         rotation = gameObject.transform.rotation;
-        SendProjectileDataToServer();
+        //SendProjectileDataToServer();
     }
 
     void Update()

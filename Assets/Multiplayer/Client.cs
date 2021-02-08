@@ -10,7 +10,7 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int dataBufferSize = 4096;
 
-    public string ip = "127.0.0.1";
+    public string ip = "";
     public int port = 24745;
     public int myId = 0;
     public TCP tcp;
@@ -77,7 +77,14 @@ public class Client : MonoBehaviour
             };
 
             receiveBuffer = new byte[dataBufferSize];
-            socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
+            try
+            {
+                socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
+            } 
+            catch (SocketException sx)
+            {
+                Debug.Log($"Host not found: {sx}");
+            }
         }
 
         private void ConnectCallback(IAsyncResult _result)

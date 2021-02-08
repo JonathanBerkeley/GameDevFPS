@@ -16,7 +16,7 @@ public class MiscInputListener : MonoBehaviour
 
             if (Client.instance != null)
             {
-                Debug.Log("Hello_World");
+                Debug.Log("DEV -- Remember to repair this");
                 //Client.instance.RequestClientDisconnect("BOTH");
             }
         }
