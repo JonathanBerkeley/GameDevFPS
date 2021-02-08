@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ClientHandle : MonoBehaviour
 {
-    public GameObject projectilePrefab;
+    //public GameObject projectilePrefab;
     public static void Welcome(Packet _packet)
     {
         string _msg = _packet.ReadString();

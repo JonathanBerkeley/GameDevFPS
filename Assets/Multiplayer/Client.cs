@@ -42,7 +42,7 @@ public class Client : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Disconnect();
+        Disconnect("OnApplicationQuit hooked");
     }
 
     public void ConnectToServer()
@@ -82,7 +82,14 @@ public class Client : MonoBehaviour
 
         private void ConnectCallback(IAsyncResult _result)
         {
-            socket.EndConnect(_result);
+            try
+            {
+                socket.EndConnect(_result);
+            } 
+            catch (Exception ex)
+            {
+                Debug.Log($"ConnectCallback error: {ex}");
+            }
             if (!socket.Connected)
             {
                 return;
@@ -118,7 +125,7 @@ public class Client : MonoBehaviour
                 int _byteLength = stream.EndRead(_result);
                 if (_byteLength <= 0)
                 {
-                    instance.Disconnect();
+                    instance.Disconnect($"_byteLength <= 0(Fatal)");
                     return;
                 }
 
@@ -128,9 +135,10 @@ public class Client : MonoBehaviour
                 receivedData.Reset(HandleData(_data));
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
             }
-            catch
+            catch (Exception ex)
             {
-                Disconnect();
+                Debug.Log($"ReceiveCallback caught exception: {ex}");
+                Disconnect($"Due to exception {ex}");
             }
         }
 
@@ -179,9 +187,9 @@ public class Client : MonoBehaviour
             return false;
         }
 
-        public void Disconnect()
+        private void Disconnect(String reason)
         {
-            instance.Disconnect();
+            instance.Disconnect(reason);
 
             stream = null;
             receivedData = null;
@@ -238,14 +246,14 @@ public class Client : MonoBehaviour
                 //Checks if there is a full packet, if not, returns outside of method
                 if (_data.Length < 4)
                 {
-                    instance.Disconnect();
+                    instance.Disconnect("Unfilled packet (Fatal)");
                     return;
                 }
 
                 HandleData(_data);
-            } catch
+            } catch (Exception ex)
             {
-                Disconnect();
+                Disconnect($"UDP ReceiveCallback exception {ex}");
             }
         }
 
@@ -268,9 +276,9 @@ public class Client : MonoBehaviour
             });
         }
 
-        public void Disconnect()
+        private void Disconnect(String reason)
         {
-            instance.Disconnect();
+            instance.Disconnect(reason);
             endPoint = null;
             socket = null;
         }
@@ -283,14 +291,14 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.welcome, ClientHandle.Welcome },
             { (int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer },
             { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
-            { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation }
+            { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
             //{ (int)ServerPackets.udpTest, ClientHandle.UDPTest }
         };
         Debug.Log("Initialized packets.");
     }
 
     //Disconnects client connection
-    private void Disconnect()
+    private void Disconnect(String reason)
     {
         if (isConnected)
         {
@@ -298,29 +306,30 @@ public class Client : MonoBehaviour
             tcp.socket.Close();
             udp.socket.Close();
 
-            Debug.Log("Disconnected from server.");
+            Debug.Log($"Disconnected from server because {reason}");
         }
     }
 
     //For others scripts to request disconnect
+    /*
     public void RequestClientDisconnect(String type)
     {
         if (type == "UDP")
         {
-            instance.udp.Disconnect();
+            instance.udp.Disconnect($"RequestClientDisconnect {type}");
         } else if (type == "TCP")
         {
-            instance.tcp.Disconnect();
+            instance.tcp.Disconnect($"RequestClientDisconnect {type}");
         } else
         {
-            instance.udp.Disconnect();
-            instance.tcp.Disconnect();
+            instance.udp.Disconnect($"RequestClientDisconnect {type}");
+            instance.tcp.Disconnect($"RequestClientDisconnect {type}");
 
             //Reset dictionaries
             GameManager.instance.ResetDictionary();
         }
     }
-
+    */
     public bool GetClientConnected()
     {
         return this.isConnected;

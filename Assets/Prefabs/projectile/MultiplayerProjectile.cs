@@ -143,6 +143,6 @@ public class MultiplayerProjectile : MonoBehaviour
 
     private void SendProjectileDataToServer()
     {
-        ClientSend.ProjectileLaunchData(location, rotation);
+        //ClientSend.ProjectileLaunchData(location, rotation);
     }
 }
