@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Client : MonoBehaviour
 {
@@ -96,6 +97,8 @@ public class Client : MonoBehaviour
             catch (Exception ex)
             {
                 Debug.Log($"ConnectCallback error: {ex}");
+                //Disconnect if can't connect to server
+                MiscInputListener.DisconnectBackToMenu();
             }
             if (!socket.Connected)
             {
@@ -194,7 +197,7 @@ public class Client : MonoBehaviour
             return false;
         }
 
-        private void Disconnect(String reason)
+        internal void Disconnect(String reason)
         {
             instance.Disconnect(reason);
 
@@ -283,7 +286,7 @@ public class Client : MonoBehaviour
             });
         }
 
-        private void Disconnect(String reason)
+        internal void Disconnect(String reason)
         {
             instance.Disconnect(reason);
             endPoint = null;
@@ -310,15 +313,21 @@ public class Client : MonoBehaviour
         if (isConnected)
         {
             isConnected = false;
-            tcp.socket.Close();
-            udp.socket.Close();
-
-            Debug.Log($"Disconnected from server because {reason}");
+            try
+            {
+                tcp.socket.Close();
+                udp.socket.Close();
+            }
+            catch (NullReferenceException ex)
+            {
+                
+            }
+            Debug.Log($"Disconnected from server with reason: {reason}");
         }
     }
 
     //For others scripts to request disconnect
-    /*
+    
     public void RequestClientDisconnect(String type)
     {
         if (type == "UDP")
@@ -336,7 +345,7 @@ public class Client : MonoBehaviour
             GameManager.instance.ResetDictionary();
         }
     }
-    */
+    
     public bool GetClientConnected()
     {
         return this.isConnected;
