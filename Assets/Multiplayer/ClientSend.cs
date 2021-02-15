@@ -32,7 +32,6 @@ public class ClientSend : MonoBehaviour
     //Instead of doing computation for player movement on the server
     public static void PlayerData(Vector3 _location, Quaternion _rotation)
     {
-        Debug.Log($"PlayerData: {_location}, {_rotation}");
         using (Packet _packet = new Packet((int)ClientPackets.playerData))
         {
             _packet.Write(_location);
@@ -43,7 +42,6 @@ public class ClientSend : MonoBehaviour
     }
 
 
-    /*
     //Custom function for projectile launch
     public static void ProjectileLaunchData(Vector3 _location, Quaternion _rotation)
     {
@@ -56,7 +54,6 @@ public class ClientSend : MonoBehaviour
             SendUDPData(_packet);
         }
     }
-    */
 
     /* For testing UDP
     public static void UDPTestReceived()

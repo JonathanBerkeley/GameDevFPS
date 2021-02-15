@@ -15,8 +15,8 @@ public enum ServerPackets
     welcome = 1,
     spawnPlayer,
     playerPosition,
-    playerRotation
-    //projectileData
+    playerRotation,
+    projectileData
     //udpTest
 }
 
@@ -24,8 +24,8 @@ public enum ServerPackets
 public enum ClientPackets
 {
     welcomeReceived = 1,
-    playerData
-    //projectileData
+    playerData,
+    projectileData
     //udpTestReceived
 }
 

@@ -51,4 +51,20 @@ public class UIManager : MonoBehaviour
         //Shows player UI
         playerUI.SetActive(true);
     }
+
+    public void RestoreUI()
+    {
+        startMenu.SetActive(true);
+        ipField.interactable = true;
+        usernameField.interactable = true;
+        menuCamera.enabled = true;
+        playerUI.SetActive(false);
+    }
+
+
+    //For other scripts to restore the UI
+    public static UIManager GetInstance()
+    {
+        return instance;
+    }
 }

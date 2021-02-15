@@ -4,7 +4,6 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System;
-using UnityEngine.SceneManagement;
 
 public class Client : MonoBehaviour
 {
@@ -46,6 +45,7 @@ public class Client : MonoBehaviour
         Disconnect("OnApplicationQuit hooked");
     }
 
+    //Without an IP (for testing)
     public void ConnectToServer()
     {
         InitializeClientData();
@@ -58,7 +58,14 @@ public class Client : MonoBehaviour
         this.ip = withIP;
         InitializeClientData();
         isConnected = true;
-        tcp.Connect();
+        try
+        {
+            tcp.Connect();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("COOL!" + ex);
+        }
     }
 
     public class TCP
@@ -81,7 +88,7 @@ public class Client : MonoBehaviour
             try
             {
                 socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
-            } 
+            }
             catch (SocketException sx)
             {
                 Debug.Log($"Host not found: {sx}");
@@ -93,12 +100,11 @@ public class Client : MonoBehaviour
             try
             {
                 socket.EndConnect(_result);
-            } 
+            }
             catch (Exception ex)
             {
                 Debug.Log($"ConnectCallback error: {ex}");
-                //Disconnect if can't connect to server
-                MiscInputListener.DisconnectBackToMenu();
+                Disconnect(ex.ToString());
             }
             if (!socket.Connected)
             {
@@ -121,7 +127,8 @@ public class Client : MonoBehaviour
                     stream.BeginWrite(_packet.ToArray(), 0, _packet.Length(), null, null);
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Debug.Log($"Error sending data to server via TCP: {ex}");
             }
@@ -240,7 +247,8 @@ public class Client : MonoBehaviour
                 {
                     socket.BeginSend(_packet.ToArray(), _packet.Length(), null, null);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Debug.Log($"Error sending data to server through UDP: {ex}");
             }
@@ -261,7 +269,8 @@ public class Client : MonoBehaviour
                 }
 
                 HandleData(_data);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Disconnect($"UDP ReceiveCallback exception {ex}");
             }
@@ -317,26 +326,33 @@ public class Client : MonoBehaviour
             {
                 tcp.socket.Close();
                 udp.socket.Close();
+                Debug.Log($"Disconnected from server with reason: {reason}");
             }
             catch (NullReferenceException ex)
             {
-                
+                Debug.Log("Exception in Client Disconnect: " + ex + " while attempting disconnect for reason: " + reason);
+
+                AsyncSlave.slave.AddTask(() =>
+                {
+                    UIManager.instance.RestoreUI();
+                });
             }
-            Debug.Log($"Disconnected from server with reason: {reason}");
         }
     }
 
     //For others scripts to request disconnect
-    
+
     public void RequestClientDisconnect(String type)
     {
         if (type == "UDP")
         {
             instance.udp.Disconnect($"RequestClientDisconnect {type}");
-        } else if (type == "TCP")
+        }
+        else if (type == "TCP")
         {
             instance.tcp.Disconnect($"RequestClientDisconnect {type}");
-        } else
+        }
+        else
         {
             instance.udp.Disconnect($"RequestClientDisconnect {type}");
             instance.tcp.Disconnect($"RequestClientDisconnect {type}");
@@ -345,7 +361,7 @@ public class Client : MonoBehaviour
             GameManager.instance.ResetDictionary();
         }
     }
-    
+
     public bool GetClientConnected()
     {
         return this.isConnected;
