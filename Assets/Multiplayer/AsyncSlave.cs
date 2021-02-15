@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*
+ * With thanks to https://stackoverflow.com/questions/53916533/setactive-can-only-be-called-from-the-main-thread
+ */
 internal class AsyncSlave : MonoBehaviour
 {
     internal static AsyncSlave slave;

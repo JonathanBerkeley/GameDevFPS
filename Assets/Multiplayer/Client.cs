@@ -58,14 +58,7 @@ public class Client : MonoBehaviour
         this.ip = withIP;
         InitializeClientData();
         isConnected = true;
-        try
-        {
-            tcp.Connect();
-        }
-        catch (Exception ex)
-        {
-            Debug.Log("COOL!" + ex);
-        }
+        tcp.Connect();
     }
 
     public class TCP
