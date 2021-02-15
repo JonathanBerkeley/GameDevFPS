@@ -6,17 +6,17 @@ using UnityEngine;
 /*
  * With thanks to https://stackoverflow.com/questions/53916533/setactive-can-only-be-called-from-the-main-thread
  */
-internal class AsyncSlave : MonoBehaviour
+class AsyncSlave : MonoBehaviour
 {
     internal static AsyncSlave slave;
-    Queue<System.Action> tasks = new Queue<System.Action>();
+    readonly Queue<System.Action> tasks = new Queue<System.Action>();
 
-    void Awake()
+    private void Awake()
     {
         slave = this;
     }
 
-    void Update()
+    private void Update()
     {
         while (tasks.Count > 0)
         {

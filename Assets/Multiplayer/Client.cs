@@ -85,6 +85,7 @@ public class Client : MonoBehaviour
             catch (SocketException sx)
             {
                 Debug.Log($"Host not found: {sx}");
+                Disconnect(sx.ToString());
             }
         }
 
@@ -206,6 +207,29 @@ public class Client : MonoBehaviour
             receiveBuffer = null;
             socket = null;
         }
+
+        /*
+        * With thanks to https://stackoverflow.com/questions/11837541/check-if-a-port-is-open
+        */
+        /*
+        internal bool CheckPortOpen(string host, int port, TimeSpan timeout)
+        {
+            try
+            {
+                using (var client = new TcpClient())
+                {
+                    IAsyncResult response = client.BeginConnect(host, port, null, null);
+                    bool portStatus = response.AsyncWaitHandle.WaitOne(timeout);
+                    client.EndConnect(response);
+                    return portStatus;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        */
     }
 
     public class UDP
