@@ -42,7 +42,9 @@ public class ClientSend : MonoBehaviour
     }
 
 
+    
     //Custom function for projectile launch
+    /*
     public static void ProjectileLaunchData(Vector3 _location, Quaternion _rotation)
     {
         Debug.Log($"ProjectileLaunchData: {_location}, {_rotation}");
@@ -54,6 +56,7 @@ public class ClientSend : MonoBehaviour
             SendUDPData(_packet);
         }
     }
+    */
 
     /* For testing UDP
     public static void UDPTestReceived()

@@ -37,7 +37,6 @@ public class Client : MonoBehaviour
     private void Start()
     {
         tcp = new TCP();
-        udp = new UDP();
     }
 
     private void OnApplicationQuit()
@@ -56,6 +55,7 @@ public class Client : MonoBehaviour
     public void ConnectToServer(string withIP)
     {
         this.ip = withIP;
+        udp = new UDP();
         InitializeClientData();
         isConnected = true;
         tcp.Connect();
@@ -239,6 +239,7 @@ public class Client : MonoBehaviour
 
         public UDP()
         {
+            Debug.Log($"UDP - {IPAddress.Parse(instance.ip)} {instance.port}");
             endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance.port);
         }
 

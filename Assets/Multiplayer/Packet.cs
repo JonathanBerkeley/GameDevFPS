@@ -16,8 +16,8 @@ public enum ServerPackets
     spawnPlayer,
     playerPosition,
     playerRotation,
-    projectileData
-    //udpTest
+    //projectileData
+    udpTest
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -25,8 +25,8 @@ public enum ClientPackets
 {
     welcomeReceived = 1,
     playerData,
-    projectileData
-    //udpTestReceived
+    //projectileData
+    udpTestReceived
 }
 
 public class Packet : IDisposable
