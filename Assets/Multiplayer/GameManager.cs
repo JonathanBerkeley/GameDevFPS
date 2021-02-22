@@ -6,11 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
-    //public static Dictionary<int, ProjectileManager> projectiles = new Dictionary<int, ProjectileManager>();
 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
-    //public GameObject projectilePrefab;
+    public GameObject projectilePrefab;
     public GameObject gameLogic;
 
     private SpawnHandler spawnHandler;
@@ -40,13 +39,16 @@ public class GameManager : MonoBehaviour
     {
         GameObject _player;
         GameObject[] rl = spawnHandler.GetRandomisedSpawns();
+        //If this is data for the current client
         if (_id == Client.instance.myId)
         {
             _player = Instantiate(localPlayerPrefab
                 , spawnHandler.GetRandomSpawn(rl).transform.position
                 , _rotation);
             PlayerID.AssignNewID(_player);
-        } else
+        } 
+        // If it's data for other clients
+        else
         {
             _player = Instantiate(playerPrefab
                 , spawnHandler.GetRandomSpawn(rl).transform.position
@@ -59,6 +61,18 @@ public class GameManager : MonoBehaviour
         players.Add(_id, _player.GetComponent<PlayerManager>());
     }
 
+
+    public void CreateProjectile(int _id, Vector3 _location, Quaternion _rotation)
+    {
+        Debug.Log($"CreateProjectile was called! With data {_id} {_location} {_rotation}");
+        GameObject projectile = Instantiate(projectilePrefab, _location, _rotation);
+
+        //Gives rocket momentum
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * 50.0f, ForceMode.VelocityChange);
+    }
+
+
     public void SpawnProjectile(int _id, Vector3 _position, Quaternion _rotation)
     {
 
@@ -70,15 +84,5 @@ public class GameManager : MonoBehaviour
         players = new Dictionary<int, PlayerManager>();
     }
 
-    /*
-    public void CreateProjectile(int _id, Vector3 _location, Quaternion _rotation)
-    {
 
-        GameObject projectile = Instantiate(projectilePrefab, _location, _rotation);
-
-        //Gives rocket momentum
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 50.0f, ForceMode.VelocityChange);
-    }
-    */
 }

@@ -27,11 +27,11 @@ public class MultiplayerProjectile : MonoBehaviour
         countdown = delay;
     }
 
-    private void FixedUpdate()
+    private void Awake()
     {
         location = gameObject.transform.position;
         rotation = gameObject.transform.rotation;
-        //SendProjectileDataToServer();
+        SendProjectileDataToServer();
     }
 
     void Update()
@@ -143,6 +143,6 @@ public class MultiplayerProjectile : MonoBehaviour
 
     private void SendProjectileDataToServer()
     {
-        //ClientSend.ProjectileLaunchData(location, rotation);
+        ClientSend.ProjectileLaunchData(location, rotation);
     }
 }

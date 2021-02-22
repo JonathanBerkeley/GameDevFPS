@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ClientHandle : MonoBehaviour
 {
-    //public GameObject projectilePrefab;
     public static void Welcome(Packet _packet)
     {
         string _msg = _packet.ReadString();
@@ -49,11 +48,14 @@ public class ClientHandle : MonoBehaviour
 
     public static void ProjectileData(Packet _packet)
     {
+
+        //IDEA: Fix projectiles by having a client side dictionary of projectile ids that have already been created. Would fix problem, but probably be quite slow in a lengthy game.
+        //Could speed up that check by having it just increase by one, handled by the server then do a greater than check on the client.
+
         int _id = _packet.ReadInt();
         Vector3 _location = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
-
-
+        GameManager.instance.CreateProjectile(_id, _location, _rotation);
     }
 
     /* For testing UDP

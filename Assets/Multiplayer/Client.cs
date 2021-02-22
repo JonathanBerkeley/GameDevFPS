@@ -329,6 +329,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer },
             { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
             { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
+            { (int)ServerPackets.projectileData, ClientHandle.ProjectileData },
             //{ (int)ServerPackets.udpTest, ClientHandle.UDPTest }
         };
         Debug.Log("Initialized packets.");
@@ -359,7 +360,6 @@ public class Client : MonoBehaviour
     }
 
     //For others scripts to request disconnect
-
     public void RequestClientDisconnect(String type)
     {
         if (type == "UDP")
