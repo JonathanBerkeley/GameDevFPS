@@ -31,7 +31,6 @@ public class MultiplayerProjectile : MonoBehaviour
     {
         location = gameObject.transform.position;
         rotation = gameObject.transform.rotation;
-        SendProjectileDataToServer();
     }
 
     void Update()
@@ -139,10 +138,5 @@ public class MultiplayerProjectile : MonoBehaviour
     public int GetParentID()
     {
         return this.id;
-    }
-
-    private void SendProjectileDataToServer()
-    {
-        ClientSend.ProjectileLaunchData(location, rotation);
     }
 }

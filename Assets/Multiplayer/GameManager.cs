@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviour
         players.Add(_id, _player.GetComponent<PlayerManager>());
     }
 
-
     public void CreateProjectile(int _id, Vector3 _location, Quaternion _rotation)
     {
         Debug.Log($"CreateProjectile was called! With data {_id} {_location} {_rotation}");
@@ -69,13 +68,7 @@ public class GameManager : MonoBehaviour
 
         //Gives rocket momentum
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 50.0f, ForceMode.VelocityChange);
-    }
-
-
-    public void SpawnProjectile(int _id, Vector3 _position, Quaternion _rotation)
-    {
-
+        rb.AddForce(projectile.transform.forward * 50.0f, ForceMode.VelocityChange);
     }
 
     //Resets player list on disconnect

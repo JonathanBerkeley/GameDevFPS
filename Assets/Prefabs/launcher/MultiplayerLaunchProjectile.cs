@@ -49,7 +49,6 @@ public class MultiplayerLaunchProjectile : MonoBehaviour
                 _playerStats.SetAmmo(--_pAmmo);
                 StartCoroutine(PauseFiring());
             }
-
         }
 
         //Keeps the firing particle effects on the launcher regardless of speed
@@ -76,6 +75,8 @@ public class MultiplayerLaunchProjectile : MonoBehaviour
 
         //ClientSend.ProjectileLaunchData(adjustedPosition, transform.rotation);
 
+        SendProjectileDataToServer(projectile);
+
 
         //Gives the rocket an ID to parent so that it doesn't collide with owner of rocket
         projectile.GetComponent<MultiplayerProjectile>()
@@ -96,5 +97,12 @@ public class MultiplayerLaunchProjectile : MonoBehaviour
         canLaunch = false;
         yield return new WaitForSeconds(launchDelay);
         canLaunch = true;
+    }
+
+    private void SendProjectileDataToServer(GameObject projectile)
+    {
+        var _location = projectile.transform.position;
+        var _rotation = projectile.transform.rotation;
+        ClientSend.ProjectileLaunchData(_location, _rotation);
     }
 }
