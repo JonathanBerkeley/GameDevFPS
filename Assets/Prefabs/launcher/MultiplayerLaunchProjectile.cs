@@ -6,7 +6,7 @@ using UnityEngine;
 //Multiplayer variant of LaunchProjectile
 public class MultiplayerLaunchProjectile : MonoBehaviour
 {
-    public float projectileSpeed = 50.0f;
+    public static float projectileSpeed = 50.0f;
     public float adjustSpawnPositionY = 0.3f;
     public float launchDelay = 1.0f;
 

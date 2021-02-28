@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
         //Gives rocket momentum
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        rb.AddForce(projectile.transform.forward * 50.0f, ForceMode.VelocityChange);
+        rb.AddForce(projectile.transform.forward * MultiplayerLaunchProjectile.projectileSpeed, ForceMode.VelocityChange);
     }
 
     //Resets player list on disconnect
