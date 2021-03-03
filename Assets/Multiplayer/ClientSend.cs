@@ -44,13 +44,21 @@ public class ClientSend : MonoBehaviour
     //Custom function for projectile launch
     public static void ProjectileLaunchData(Vector3 _location, Quaternion _rotation)
     {
-        Debug.Log($"ProjectileLaunchData: {_location}, {_rotation}");
         using (Packet _packet = new Packet((int)ClientPackets.projectileData))
         {
             _packet.Write(_location);
             _packet.Write(_rotation);
 
             SendUDPData(_packet);
+        }
+    }
+
+    public static void ClientChatData(string _message)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.userMessage))
+        {
+            _packet.Write(_message);
+            SendTCPData(_packet);
         }
     }
 

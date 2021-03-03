@@ -16,6 +16,10 @@ public class ClientHandle : MonoBehaviour
 
         //Connecting UDP via the existing TCP connection
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
+
+
+        //Testing
+        ClientSend.ClientChatData("Hello world! :)");
     }
 
     public static void SpawnPlayer(Packet _packet)
@@ -48,15 +52,18 @@ public class ClientHandle : MonoBehaviour
 
     public static void ProjectileData(Packet _packet)
     {
-
-        //IDEA: Fix projectiles by having a client side dictionary of projectile ids that have already been created. Would fix problem, but probably be quite slow in a lengthy game.
-        //Could speed up that check by having it just increase by one, handled by the server then do a greater than check on the client.
-
         int _id = _packet.ReadInt();
         Vector3 _location = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
 
         GameManager.instance.CreateProjectile(_id, _location, _rotation);
+    }
+
+    public static void ClientChat(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        string _message = _packet.ReadString();
+        Debug.Log($"Message from {_id}: {_message}");
     }
 
     /* For testing UDP
