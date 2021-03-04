@@ -16,10 +16,6 @@ public class ClientHandle : MonoBehaviour
 
         //Connecting UDP via the existing TCP connection
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
-
-
-        //Testing
-        ClientSend.ClientChatData("Hello world! :)");
     }
 
     public static void SpawnPlayer(Packet _packet)

@@ -7,16 +7,22 @@ public static class StaticInput
     private static bool jumping = false;
     private static bool shooting = false;
     private static bool pause = false;
+    private static bool chatDown = false;
+    
+    private static bool inputSuspended = false;
 
     /// <summary>
     /// Updates all the player input values
     /// </summary>
     public static void UpdatePlayerValues()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-        jumping = Input.GetButton("Jump");
-        shooting = Input.GetButtonDown("Fire1");
+        if (!inputSuspended)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
+            jumping = Input.GetButton("Jump");
+            shooting = Input.GetButtonDown("Fire1");
+        }
     }
 
     /// <summary>
@@ -24,7 +30,10 @@ public static class StaticInput
     /// </summary>
     public static void UpdateHorizontal()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        if (!inputSuspended)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+        }
     }
 
     /// <summary>
@@ -32,7 +41,10 @@ public static class StaticInput
     /// </summary>
     public static void UpdateVertical()
     {
-        vertical = Input.GetAxisRaw("Vertical");
+        if (!inputSuspended)
+        {
+            vertical = Input.GetAxisRaw("Vertical");
+        }
     }
 
     /// <summary>
@@ -40,7 +52,10 @@ public static class StaticInput
     /// </summary>
     public static void UpdateJumping()
     {
-        jumping = Input.GetButton("Jump");
+        if (!inputSuspended)
+        {
+            jumping = Input.GetButton("Jump");
+        }
     }
 
     /// <summary>
@@ -48,13 +63,39 @@ public static class StaticInput
     /// </summary>
     public static void UpdateShooting()
     {
-        shooting = Input.GetButtonDown("Fire1");
+        if (!inputSuspended)
+        {
+            shooting = Input.GetButtonDown("Fire1");
+        }
     }
 
     public static void UpdatePauseCheck()
     {
-        pause = Input.GetButtonDown("Cancel");
+        if (!inputSuspended)
+        {
+            pause = Input.GetButtonDown("Cancel");
+        }
     }
+
+
+    //Chat keys below for multiplayer chat
+    public static void UpdateChatCheck()
+    {
+        chatDown = Input.GetButtonDown("Chat");
+
+        if (inputSuspended)
+        {
+            if (Input.GetButtonDown("ChatSubmit"))
+            {
+                MultiplayerChat.instance.SubmitText();
+            }
+            if (Input.GetButtonDown("Cancel"))
+            {
+                MultiplayerChat.instance.DisableChat();
+            }
+        }
+    }
+
 
     /// <summary>
     /// Gets the last saved horizontal value
@@ -99,5 +140,15 @@ public static class StaticInput
     public static bool GetPaused()
     {
         return pause;
+    }
+
+    public static bool GetChatDown()
+    {
+        return chatDown;
+    }
+
+    public static void SuspendInput(bool _option)
+    {
+        inputSuspended = _option;
     }
 }
