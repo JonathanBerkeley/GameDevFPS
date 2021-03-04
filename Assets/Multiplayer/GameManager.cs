@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,8 +12,10 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject projectilePrefab;
     public GameObject gameLogic;
+    public Text gameChat;
 
     private SpawnHandler spawnHandler;
+    private Color preColor;
 
     private void Awake()
     {
@@ -26,6 +29,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Instance already in existence, destroying self");
             Destroy(this);
         }
+
+        preColor = gameChat.color;
     }
 
     private void Start()
@@ -63,12 +68,52 @@ public class GameManager : MonoBehaviour
 
     public void CreateProjectile(int _id, Vector3 _location, Quaternion _rotation)
     {
-        Debug.Log($"CreateProjectile was called! With data {_id} {_location} {_rotation}");
+        //Debug.Log($"CreateProjectile was called! With data {_id} {_location} {_rotation}");
         GameObject projectile = Instantiate(projectilePrefab, _location, _rotation);
 
         //Gives rocket momentum
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         rb.AddForce(projectile.transform.forward * MultiplayerLaunchProjectile.projectileSpeed, ForceMode.VelocityChange);
+    }
+
+
+    private List<string> _chatMessages = new List<string>(); 
+    public void ReceiveChat(int _id, string _message)
+    {
+        StopAllCoroutines();
+        gameChat.color = preColor;
+        gameChat.text = "";
+        _chatMessages.Add($"{players[_id].username}: {_message}\n");
+        
+        if (_chatMessages.Count > 7)
+        {
+            _chatMessages.RemoveAt(0);
+        }
+
+        for (int i = 0; i < _chatMessages.Count; ++i)
+        {
+            gameChat.text += _chatMessages[i];
+        }
+
+        StartCoroutine(ChatFadeOverTime());
+    }
+
+
+    IEnumerator ChatFadeOverTime()
+    {
+        Color currentColor = preColor;
+        Color fadedColor = preColor;
+        fadedColor.a = 0;
+        yield return new WaitForSeconds(5);
+        
+
+        while (currentColor.a > fadedColor.a) 
+        {
+            currentColor.a -= 0.05f;
+            yield return new WaitForSeconds(0.1f);
+            gameChat.color = currentColor;
+        }
+            
     }
 
     //Resets player list on disconnect

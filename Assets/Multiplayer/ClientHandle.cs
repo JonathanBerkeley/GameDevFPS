@@ -59,7 +59,10 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         string _message = _packet.ReadString();
-        Debug.Log($"Message from {_id}: {_message}");
+        Debug.Log($"Message from {GameManager.players[_id].username}: {_message}");
+
+        GameManager.instance.ReceiveChat(_id, _message);
+
     }
 
     /* For testing UDP
