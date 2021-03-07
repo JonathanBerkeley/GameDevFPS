@@ -39,14 +39,23 @@ public class UIManager : MonoBehaviour
             return;
         }
 
+
         //Disables menu and cameras
         startMenu.SetActive(false);
         ipField.interactable = false;
         usernameField.interactable = false;
         menuCamera.enabled = false;
 
-        //Connects to server
-        Client.instance.ConnectToServer(ipText.text);
+        //Remove this after dev!
+        if (ipText.text == "lh")
+        {
+            Client.instance.ConnectToServer("127.0.0.1");
+        } 
+        else
+        {
+            //Connects to server
+            Client.instance.ConnectToServer(ipText.text);
+        }
 
         //Shows player UI
         playerUI.SetActive(true);
