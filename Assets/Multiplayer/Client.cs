@@ -54,11 +54,44 @@ public class Client : MonoBehaviour
 
     public void ConnectToServer(string withIP)
     {
-        this.ip = withIP;
-        udp = new UDP();
-        InitializeClientData();
-        isConnected = true;
-        tcp.Connect();
+        //Checks if the IP is valid and the port is open on this games 
+        //&& CheckPortOpen(withIP, port, new TimeSpan(0, 0, 5))
+        if (IPAddress.TryParse(withIP, out _) )
+        {
+            this.ip = withIP;
+            udp = new UDP();
+            InitializeClientData();
+            isConnected = true;
+            tcp.Connect();
+
+        }
+        else
+        {
+            AsyncSlave.slave.AddTask(() =>
+            {
+                UIManager.instance.RestoreUI();
+            });
+        }
+    }
+    /*
+    * With thanks to https://stackoverflow.com/questions/11837541/check-if-a-port-is-open
+    */
+    private bool CheckPortOpen(string host, int port, TimeSpan timeout)
+    {
+        try
+        {
+            using (var client = new TcpClient())
+            {
+                IAsyncResult response = client.BeginConnect(host, port, null, null);
+                bool portStatus = response.AsyncWaitHandle.WaitOne(timeout);
+                client.EndConnect(response);
+                return portStatus;
+            }
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public class TCP
@@ -208,28 +241,6 @@ public class Client : MonoBehaviour
             socket = null;
         }
 
-        /*
-        * With thanks to https://stackoverflow.com/questions/11837541/check-if-a-port-is-open
-        */
-        /*
-        internal bool CheckPortOpen(string host, int port, TimeSpan timeout)
-        {
-            try
-            {
-                using (var client = new TcpClient())
-                {
-                    IAsyncResult response = client.BeginConnect(host, port, null, null);
-                    bool portStatus = response.AsyncWaitHandle.WaitOne(timeout);
-                    client.EndConnect(response);
-                    return portStatus;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        */
     }
 
     public class UDP
@@ -327,10 +338,12 @@ public class Client : MonoBehaviour
         {
             { (int)ServerPackets.welcome, ClientHandle.Welcome },
             { (int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer },
+            { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected },
             { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
             { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
             { (int)ServerPackets.projectileData, ClientHandle.ProjectileData },
             { (int)ServerPackets.userMessage, ClientHandle.ClientChat }
+            
             //{ (int)ServerPackets.udpTest, ClientHandle.UDPTest }
         };
         Debug.Log("Initialized packets.");
@@ -342,6 +355,9 @@ public class Client : MonoBehaviour
         if (isConnected)
         {
             isConnected = false;
+
+            //Reset dictionaries
+            GameManager.instance.ResetDictionary();
             try
             {
                 tcp.socket.Close();
@@ -375,10 +391,8 @@ public class Client : MonoBehaviour
         {
             instance.udp.Disconnect($"RequestClientDisconnect {type}");
             instance.tcp.Disconnect($"RequestClientDisconnect {type}");
-
-            //Reset dictionaries
-            GameManager.instance.ResetDictionary();
         }
+        GameManager.instance.ResetDictionary();
     }
 
     public bool GetClientConnected()

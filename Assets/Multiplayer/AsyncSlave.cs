@@ -5,6 +5,7 @@ using UnityEngine;
 
 /*
  * With thanks to https://stackoverflow.com/questions/53916533/setactive-can-only-be-called-from-the-main-thread
+ * Alternative to ThreadManager queue
  */
 class AsyncSlave : MonoBehaviour
 {

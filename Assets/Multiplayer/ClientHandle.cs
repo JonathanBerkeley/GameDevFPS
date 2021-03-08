@@ -28,12 +28,22 @@ public class ClientHandle : MonoBehaviour
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
     }
 
+    public static void PlayerDisconnected(Packet _packet)
+    {
+        //The ID of the disconnected player
+        int _id = _packet.ReadInt();
+
+        //Destroy the in-game prefab of this player
+        Destroy(GameManager.players[_id].gameObject);
+        GameManager.players.Remove(_id);
+    }
+
     public static void PlayerPosition(Packet _packet)
     {
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
         
-        //Debug.Log("Position was read for player with ID " + _id + " : " + _position);
+        Debug.Log("Position was read for player with ID " + _id + " : " + _position);
         GameManager.players[_id].transform.position = _position;
     }
     
