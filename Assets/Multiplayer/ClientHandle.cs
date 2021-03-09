@@ -43,8 +43,18 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
         
-        Debug.Log("Position was read for player with ID " + _id + " : " + _position);
-        GameManager.players[_id].transform.position = _position;
+        //Debug.Log("Position was read for player with ID " + _id + " : " + _position);
+
+        foreach (var p in GameManager.players)
+        {
+            Debug.Log($"Key : {p.Key}, Value: {p.Value.username}");
+        }
+
+        if (GameManager.players.ContainsKey(_id))
+        {
+            GameManager.players[_id].transform.position = _position;
+        }
+        
     }
     
     public static void PlayerRotation(Packet _packet)
@@ -53,7 +63,12 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rotation = _packet.ReadQuaternion();
         
         //Debug.Log("Rotation was read for player with ID " + _id + " : " + _rotation);
-        GameManager.players[_id].transform.rotation = _rotation;
+
+        if (GameManager.players.ContainsKey(_id))
+        {
+            GameManager.players[_id].transform.rotation = _rotation;
+        }
+        
     }
 
     public static void ProjectileData(Packet _packet)
