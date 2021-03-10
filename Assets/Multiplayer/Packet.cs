@@ -18,8 +18,8 @@ public enum ServerPackets
     playerPosition,
     playerRotation,
     projectileData,
-    userMessage
-    
+    userMessage,
+    serverControlComms
     //udpTest
 }
 

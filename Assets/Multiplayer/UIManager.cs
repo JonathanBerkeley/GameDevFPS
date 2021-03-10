@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FlagTranslations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -32,10 +33,14 @@ public class UIManager : MonoBehaviour
 
     public void ConnectToServer()
     {
+        //Clear the error messages
+        GameManager.instance.ProcessClientMessage(ClientCodeTranslations.noError);
+        
         //Nothing was entered
         if (ipText.text == "" || unameText.text == "")
         {
             Debug.Log("Client did not fill out forms");
+            GameManager.instance.ProcessClientMessage(ClientCodeTranslations.badForms);
             return;
         }
 
@@ -68,6 +73,11 @@ public class UIManager : MonoBehaviour
         usernameField.interactable = true;
         menuCamera.enabled = true;
         playerUI.SetActive(false);
+    }
+
+    public void BackButton()
+    {
+        SceneManager.LoadScene(0);
     }
 
 

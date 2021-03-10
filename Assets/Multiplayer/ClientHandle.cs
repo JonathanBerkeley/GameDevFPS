@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using FlagTranslations;
 using System.Net;
 using UnityEngine;
 
 public class ClientHandle : MonoBehaviour
 {
+
     public static void Welcome(Packet _packet)
     {
         string _msg = _packet.ReadString();
@@ -88,6 +90,13 @@ public class ClientHandle : MonoBehaviour
 
         GameManager.instance.ReceiveChat(_id, _message);
 
+    }
+
+    public static void ServerControlMessages(Packet _packet)
+    {
+        ServerCodeTranslations _msg = (ServerCodeTranslations)_packet.ReadInt();
+
+        GameManager.instance.ProcessServerMessage(_msg);
     }
 
     /* For testing UDP

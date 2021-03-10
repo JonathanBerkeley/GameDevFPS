@@ -112,7 +112,8 @@ public class MenuInit : MonoBehaviour
                     break;
                 }
             }
-        } else
+        }
+        else
         {
             Application.Quit();
         }
@@ -128,7 +129,8 @@ public class MenuInit : MonoBehaviour
         if (SettingsData.GetBotsDesired() < 7)
         {
             SettingsData.SetBotsDesired(SettingsData.GetBotsDesired() + 1);
-        } else
+        }
+        else
         {
             SettingsData.SetBotsDesired(0);
         }
@@ -144,7 +146,8 @@ public class MenuInit : MonoBehaviour
         if (SettingsData.GetFogDesired())
         {
             settingsButtons[1].GetComponent<Image>().color = buttonColorTrue;
-        } else
+        }
+        else
         {
             settingsButtons[1].GetComponent<Image>().color = buttonColorFalse;
         }

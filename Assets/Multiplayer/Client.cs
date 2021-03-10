@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System;
+using FlagTranslations;
 
 public class Client : MonoBehaviour
 {
@@ -132,6 +133,9 @@ public class Client : MonoBehaviour
             {
                 Debug.Log($"ConnectCallback error: {ex}");
                 Disconnect(ex.ToString());
+
+                //Tell user the reason for the failed connection
+                GameManager.instance.ProcessClientMessage(ClientCodeTranslations.connectionRefused);
             }
             if (!socket.Connected)
             {
@@ -342,7 +346,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
             { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
             { (int)ServerPackets.projectileData, ClientHandle.ProjectileData },
-            { (int)ServerPackets.userMessage, ClientHandle.ClientChat }
+            { (int)ServerPackets.userMessage, ClientHandle.ClientChat },
+            { (int)ServerPackets.serverControlComms, ClientHandle.ServerControlMessages }
             
             //{ (int)ServerPackets.udpTest, ClientHandle.UDPTest }
         };

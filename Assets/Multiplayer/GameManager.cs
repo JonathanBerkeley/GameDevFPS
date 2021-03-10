@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using FlagTranslations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject projectilePrefab;
     public GameObject gameLogic;
     public Text gameChat;
+    public Text errorConnectMessage;
 
     private SpawnHandler spawnHandler;
     private Color preColor;
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
                 , spawnHandler.GetRandomSpawn(rl).transform.position
                 , _rotation);
             PlayerID.AssignNewID(_player);
-        } 
+        }
         // If it's data for other clients
         else
         {
@@ -77,14 +79,14 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private List<string> _chatMessages = new List<string>(); 
+    private List<string> _chatMessages = new List<string>();
     public void ReceiveChat(int _id, string _message)
     {
         StopAllCoroutines();
         gameChat.color = preColor;
         gameChat.text = "";
         _chatMessages.Add($"{players[_id].username}: {_message}\n");
-        
+
         if (_chatMessages.Count > 7)
         {
             _chatMessages.RemoveAt(0);
@@ -96,25 +98,62 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(ChatFadeOverTime());
-    }
 
-
-    IEnumerator ChatFadeOverTime()
-    {
-        Color currentColor = preColor;
-        Color fadedColor = preColor;
-        fadedColor.a = 0;
-        yield return new WaitForSeconds(5);
-        
-
-        while (currentColor.a > fadedColor.a) 
+        IEnumerator ChatFadeOverTime()
         {
-            currentColor.a -= 0.05f;
-            yield return new WaitForSeconds(0.1f);
-            gameChat.color = currentColor;
+            Color currentColor = preColor;
+            Color fadedColor = preColor;
+            fadedColor.a = 0;
+            yield return new WaitForSeconds(5);
+
+
+            while (currentColor.a > fadedColor.a)
+            {
+                currentColor.a -= 0.05f;
+                yield return new WaitForSeconds(0.1f);
+                gameChat.color = currentColor;
+            }
+
         }
-            
     }
+
+    internal void ProcessServerMessage(ServerCodeTranslations _message)
+    {
+        switch (_message)
+        {
+            case ServerCodeTranslations.serverFull:
+                errorConnectMessage.text = "Server full";
+                break;
+            case ServerCodeTranslations.invalidUsername:
+                errorConnectMessage.text = "Username invalid";
+                break;
+            case ServerCodeTranslations.usernameTaken:
+                errorConnectMessage.text = "Username taken";
+                break;
+            default:
+                break;
+        }
+    }
+
+    internal void ProcessClientMessage(ClientCodeTranslations _message)
+    {
+        switch (_message)
+        {
+            case ClientCodeTranslations.noError:
+                errorConnectMessage.text = "";
+                break;
+            case ClientCodeTranslations.connectionRefused:
+                errorConnectMessage.text = "Connection was refused";
+                break;
+            case ClientCodeTranslations.badForms:
+                errorConnectMessage.text = "Forms unfilled";
+                break;
+            default:
+                break;
+        }
+    }
+
+
 
     //Resets player list on disconnect
     public void ResetDictionary()
