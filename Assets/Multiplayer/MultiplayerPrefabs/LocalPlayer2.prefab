@@ -240,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: 80
   health: 100
-  respawnTimer: 10
+  respawnTimer: 5
   healthTextures:
   - {fileID: 2800000, guid: 76c15d06b36e25e4f980df49889df434, type: 3}
   - {fileID: 2800000, guid: 0635570a17a7fc242a3fbbed177c3474, type: 3}
@@ -475,7 +475,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fe207b3b69022249a313de0e3d5db1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 50
   adjustSpawnPositionY: 0
   launchDelay: 0.7
   launchEffect: {fileID: 1979124000536935517, guid: 12291b688c2c1014ea0f2d786f6c5946,

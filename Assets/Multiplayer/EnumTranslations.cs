@@ -10,11 +10,9 @@ namespace FlagTranslations
         serverFull = 1,
         invalidUsername,
         usernameTaken,
-        badRequest,
-        wait,
-        retry,
-        errorDenied,
-        generalDenied
+        userNotFound,
+        badArguments,
+        invalidCommand
     }
 
     internal enum ClientCodeTranslations

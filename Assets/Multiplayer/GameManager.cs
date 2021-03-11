@@ -15,7 +15,11 @@ public class GameManager : MonoBehaviour
     public GameObject gameLogic;
     public Text gameChat;
     public Text errorConnectMessage;
+    public GameObject errorIngameMessage;
+    public GameObject errorBackPanel;
 
+
+    private Text errorIngameText;
     private SpawnHandler spawnHandler;
     private Color preColor;
 
@@ -31,13 +35,17 @@ public class GameManager : MonoBehaviour
             Debug.Log("Instance already in existence, destroying self");
             Destroy(this);
         }
-
+        
         preColor = gameChat.color;
     }
 
     private void Start()
     {
+        errorIngameMessage.SetActive(false);
+        errorBackPanel.SetActive(false);
+
         spawnHandler = gameLogic.GetComponent<SpawnHandler>();
+        errorIngameText = errorIngameMessage.GetComponent<Text>();
     }
 
 
@@ -119,6 +127,9 @@ public class GameManager : MonoBehaviour
 
     internal void ProcessServerMessage(ServerCodeTranslations _message)
     {
+        //To make future improvements easier
+        GameObject[] toDeactivate = { errorIngameMessage, errorBackPanel };
+        
         switch (_message)
         {
             case ServerCodeTranslations.serverFull:
@@ -130,8 +141,35 @@ public class GameManager : MonoBehaviour
             case ServerCodeTranslations.usernameTaken:
                 errorConnectMessage.text = "Username taken";
                 break;
-            default:
+            case ServerCodeTranslations.userNotFound:
+                IngameError("User not found");
                 break;
+            case ServerCodeTranslations.badArguments:
+                IngameError("Invalid arguments");
+                break;
+            case ServerCodeTranslations.invalidCommand:
+                IngameError("Invalid command");
+                break;
+            default:
+                Debug.LogWarning($"Unknown error sent from server. With ID: {(int)_message}");
+                break;
+        }
+
+        void IngameError(string _msg)
+        {
+            errorIngameMessage.SetActive(true);
+            errorBackPanel.SetActive(true);
+            errorIngameText.text = _msg;
+            StartCoroutine(DeactivateErrorOverTime());
+        }
+
+        IEnumerator DeactivateErrorOverTime()
+        {
+            yield return new WaitForSeconds(3.5f);
+            foreach (GameObject go in toDeactivate)
+            {
+                go.SetActive(false);
+            }
         }
     }
 
