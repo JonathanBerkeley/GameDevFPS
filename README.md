@@ -1,2 +1,2 @@
-# Skyrocket
+# Inertia
 A multiplayer unity game

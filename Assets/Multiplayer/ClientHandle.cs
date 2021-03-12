@@ -47,10 +47,12 @@ public class ClientHandle : MonoBehaviour
         
         //Debug.Log("Position was read for player with ID " + _id + " : " + _position);
 
+        /*
         foreach (var p in GameManager.players)
         {
             Debug.Log($"Key : {p.Key}, Value: {p.Value.username}");
         }
+        */
 
         if (GameManager.players.ContainsKey(_id))
         {

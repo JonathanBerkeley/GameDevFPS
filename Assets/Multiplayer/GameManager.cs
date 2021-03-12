@@ -88,9 +88,14 @@ public class GameManager : MonoBehaviour
 
 
     private List<string> _chatMessages = new List<string>();
+    private List<Coroutine> _chatFadeCoroutines = new List<Coroutine>();
     public void ReceiveChat(int _id, string _message)
     {
-        StopAllCoroutines();
+        foreach (Coroutine c in _chatFadeCoroutines)
+        {
+            StopCoroutine(c);
+        }
+
         gameChat.color = preColor;
         gameChat.text = "";
         _chatMessages.Add($"{players[_id].username}: {_message}\n");
@@ -105,7 +110,8 @@ public class GameManager : MonoBehaviour
             gameChat.text += _chatMessages[i];
         }
 
-        StartCoroutine(ChatFadeOverTime());
+        //Add coroutines to list so they can be referenced later
+        _chatFadeCoroutines.Add(StartCoroutine(ChatFadeOverTime()));
 
         IEnumerator ChatFadeOverTime()
         {
@@ -137,6 +143,9 @@ public class GameManager : MonoBehaviour
                 break;
             case ServerCodeTranslations.invalidUsername:
                 errorConnectMessage.text = "Username invalid";
+                break;
+            case ServerCodeTranslations.badVersion:
+                errorConnectMessage.text = $"Server not accepting client version {Constants.CLIENT_VERSION}";
                 break;
             case ServerCodeTranslations.usernameTaken:
                 errorConnectMessage.text = "Username taken";

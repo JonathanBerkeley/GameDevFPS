@@ -372,7 +372,13 @@ public class Client : MonoBehaviour
             catch (NullReferenceException ex)
             {
                 Debug.Log("Exception in Client Disconnect: " + ex + " while attempting disconnect for reason: " + reason);
-
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("Exception in Client Disconnect: " + ex + " while attempting disconnect for reason: " + reason);
+            }
+            finally
+            {
                 AsyncSlave.slave.AddTask(() =>
                 {
                     UIManager.instance.RestoreUI();
