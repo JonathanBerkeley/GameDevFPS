@@ -187,6 +187,10 @@ public class Client : MonoBehaviour
             {
                 Debug.Log($"ReceiveCallback caught exception: {ex}");
                 Disconnect($"Due to exception {ex}");
+                AsyncSlave.slave.AddTask(() =>
+                {
+                    GameManager.instance.LoadScene("MultiScene", ClientCodeTranslations.lostConnection);
+                });
             }
         }
 

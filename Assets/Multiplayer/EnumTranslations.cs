@@ -20,6 +20,7 @@ namespace FlagTranslations
     {
         noError,
         connectionRefused,
-        badForms
+        badForms,
+        lostConnection
     }
 }

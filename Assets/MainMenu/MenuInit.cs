@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class MenuInit : MonoBehaviour
 {
+    public static MenuInit instance;
+
     public Button[] uiButtons;
     public Button[] settingsButtons;
     public Button[] playButtons;
@@ -21,6 +23,20 @@ public class MenuInit : MonoBehaviour
     //Colours for fog true/false
     private Color buttonColorFalse = new Color32(164, 35, 35, 200);
     private Color buttonColorTrue = new Color32(75, 181, 75, 200);
+
+    void Awake()
+    {
+        //Make this a singleton class
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Debug.Log("Instance already in existence, destroying self");
+            Destroy(this);
+        }
+    }
 
     void Start()
     {
@@ -171,7 +187,7 @@ public class MenuInit : MonoBehaviour
         playMenu.SetActive(false);
 
         SceneManager.LoadScene("MultiScene");
-    }    
+    }
     
     void Singleplayer()
     {
@@ -184,7 +200,6 @@ public class MenuInit : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
-
     //Audio on menu
     void MenuClickAudio()
     {
@@ -194,5 +209,13 @@ public class MenuInit : MonoBehaviour
         AudioSource.PlayClipAtPoint(clickAudio, currentCameraPosition, menuAudioVolume);
     }
 
-    
+    public AudioClip GetClickAudio()
+    {
+        return clickAudio;
+    }
+
+    public float GetMenuVolume()
+    {
+        return menuAudioVolume;
+    }
 }

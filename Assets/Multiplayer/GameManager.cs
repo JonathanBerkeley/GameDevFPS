@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using FlagTranslations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -195,11 +197,26 @@ public class GameManager : MonoBehaviour
             case ClientCodeTranslations.badForms:
                 errorConnectMessage.text = "Forms unfilled";
                 break;
+            case ClientCodeTranslations.lostConnection:
+                errorConnectMessage.text = "Lost connection";
+                break;
             default:
                 break;
         }
     }
 
+    //These are placed in here to remove code that interacts with the game scene from networking code
+    internal void LoadScene(string scene, ClientCodeTranslations clientCode)
+    {
+        StaticError.CCT = clientCode;
+        SceneManager.LoadScene(scene);
+    }
+
+    internal void LoadScene(string scene, ServerCodeTranslations serverCode)
+    {
+        StaticError.SCT = serverCode;
+        SceneManager.LoadScene(scene);
+    }
 
 
     //Resets player list on disconnect
