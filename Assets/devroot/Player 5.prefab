@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2445710514935086066}
   - component: {fileID: 4973234945582935032}
   m_Layer: 9
-  m_Name: Player 4 1
+  m_Name: Player 5
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,6 +133,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -157,6 +158,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &4778415042750496576
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -338,6 +340,7 @@ GameObject:
   - component: {fileID: 4778415042998182989}
   - component: {fileID: 4778415042998182988}
   - component: {fileID: 1283596331481788298}
+  - component: {fileID: 5703504143392407372}
   m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -430,6 +433,19 @@ MonoBehaviour:
   verticalSensitivity: 1
   lockCursor: 1
   forceHideCursor: 1
+--- !u!114 &5703504143392407372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778415042998182991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b134e0535c2ce44b57c2d2fc95b6ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioVolume: 0.662
 --- !u!1 &4778415044358078989
 GameObject:
   m_ObjectHideFlags: 0
