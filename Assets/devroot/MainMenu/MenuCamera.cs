@@ -11,4 +11,12 @@ public class MenuCamera : MonoBehaviour
     {
         transform.RotateAround(focusTarget.transform.position, Vector3.up, rotateSpeed * Time.deltaTime);
     }
+
+    //For other scripts to change, returns previous speed
+    public float SetRotateSpeed(float speed)
+    {
+        float _previous = this.rotateSpeed;
+        this.rotateSpeed = speed;
+        return _previous;
+    }
 }

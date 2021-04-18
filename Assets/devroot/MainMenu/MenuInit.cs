@@ -20,9 +20,14 @@ public class MenuInit : MonoBehaviour
     public AudioClip clickAudio;
     public float menuAudioVolume;
 
+    public MenuCamera cameraScript;
+
     //Colours for fog true/false
     private Color buttonColorFalse = new Color32(164, 35, 35, 200);
     private Color buttonColorTrue = new Color32(75, 181, 75, 200);
+
+    //For resetting camera speed
+    private float previousCameraSpeed = 0.0f;
 
     void Awake()
     {
@@ -58,16 +63,10 @@ public class MenuInit : MonoBehaviour
         }
 
         //Set up listeners for settings menu
-        if (settingsButtons.Length == 3)
+        if (settingsButtons.Length == 1)
         {
-            Button sbtn = settingsButtons[0].GetComponent<Button>();
-            sbtn.onClick.AddListener(BotsButtonClicked);
-
-            sbtn = settingsButtons[1].GetComponent<Button>();
-            sbtn.onClick.AddListener(FogButtonClicked);
-            
-            sbtn = settingsButtons[2].GetComponent<Button>();
-            sbtn.onClick.AddListener(BackButtonClicked);
+            Button pbtn = settingsButtons[0].GetComponent<Button>();
+            pbtn.onClick.AddListener(BackButtonClicked);
         }
 
         //Set up listeners for play menu
@@ -107,6 +106,7 @@ public class MenuInit : MonoBehaviour
         mainMenu.SetActive(false);
         playMenu.SetActive(false);
         settingsMenu.SetActive(true);
+        previousCameraSpeed = cameraScript.SetRotateSpeed(-0.3f);
     }
 
     //Exit when button clicked. Also supports stopping editor.
@@ -136,7 +136,7 @@ public class MenuInit : MonoBehaviour
     }
 
 
-    //Settings menu buttons below
+    //Old settings menu buttons below (Now unused)
 
     void BotsButtonClicked()
     {
@@ -175,6 +175,7 @@ public class MenuInit : MonoBehaviour
         settingsMenu.SetActive(false);
         playMenu.SetActive(false);
         mainMenu.SetActive(true);
+        cameraScript.SetRotateSpeed(previousCameraSpeed);
     }
 
     //Play menu buttons below
