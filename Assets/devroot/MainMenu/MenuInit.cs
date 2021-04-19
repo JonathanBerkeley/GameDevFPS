@@ -219,4 +219,9 @@ public class MenuInit : MonoBehaviour
     {
         return menuAudioVolume;
     }
+
+    public void SetMenuVolume(float _vol)
+    {
+        menuAudioVolume = _vol;
+    }
 }

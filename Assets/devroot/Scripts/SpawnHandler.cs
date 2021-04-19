@@ -18,7 +18,7 @@ public class SpawnHandler : MonoBehaviour
 
     void Awake()
     {
-        //Function called returns false if no custom bot option being used
+        //Function being called returns false if no custom bot option being used
         if (SettingsData.GetCustomBotOption())
         {
             desiredBots = SettingsData.GetBotsDesired();

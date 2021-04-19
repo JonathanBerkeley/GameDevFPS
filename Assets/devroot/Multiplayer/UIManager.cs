@@ -44,6 +44,8 @@ public class UIManager : MonoBehaviour
             return;
         }
 
+        //Ignore singleplayer settings
+        SettingsData.SetBotsDesired(0);
 
         //Disables menu and cameras
         startMenu.SetActive(false);

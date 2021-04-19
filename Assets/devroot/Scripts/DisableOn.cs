@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Utility to disable components by script
 public class DisableOn : MonoBehaviour
 {
     public static DisableOn instance;
