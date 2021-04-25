@@ -50,7 +50,7 @@ public class MultiplayerProjectile : MonoBehaviour
         GameObject explosionObject = (GameObject)Instantiate(explosionEffect, transform.position, transform.rotation);
 
         //Play explosion audio
-        AudioSource.PlayClipAtPoint(explosionAudio, transform.position);
+        AudioSource.PlayClipAtPoint(explosionAudio, transform.position, GlobalAudioReference.instance.GetEffectsVolume());
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, blastRadius);
 

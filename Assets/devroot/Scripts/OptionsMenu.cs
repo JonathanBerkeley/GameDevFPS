@@ -29,7 +29,6 @@ public class OptionsMenu : MonoBehaviour
     void Update()
     {
         mainTabs[_currentlySelected].Select();
-        
     }
 
     public void SetSelected(int _select)
@@ -38,7 +37,13 @@ public class OptionsMenu : MonoBehaviour
         EnableSelected();
 
         if (_currentlySelected == 1 && innerMenus[1] != null)
-            innerMenus[1].GetComponentInChildren<Slider>().value = GlobalAudioReference.instance.GetMasterVolume();
+        {
+            //Sets sliders visually to respective values
+            Slider[] audioSliders = innerMenus[1].GetComponentsInChildren<Slider>(); //Obtains the references to sliders
+            audioSliders[0].value = GlobalAudioReference.instance.GetMasterVolume(); //Master volume
+            audioSliders[1].value = GlobalAudioReference.instance.GetEffectsVolume(); //Effects volume
+        }
+            
     }
 
     //Referenced dynamically by volume slider
@@ -47,6 +52,12 @@ public class OptionsMenu : MonoBehaviour
         if (GlobalAudioReference.instance != null)
             GlobalAudioReference.instance.SetMasterVolume(_volume);
     }
+
+    public void SetEffectsVolume(float _volume)
+    {
+        if (GlobalAudioReference.instance != null)
+            GlobalAudioReference.instance.SetEffectsVolume(_volume);
+    }   
     
     private void EnableSelected()
     {

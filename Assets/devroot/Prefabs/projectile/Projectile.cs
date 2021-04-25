@@ -43,7 +43,7 @@ public class Projectile : MonoBehaviour
         GameObject explosionObject = (GameObject)Instantiate(explosionEffect, transform.position, transform.rotation);
 
         //Play explosion audio
-        AudioSource.PlayClipAtPoint(explosionAudio, transform.position);
+        AudioSource.PlayClipAtPoint(explosionAudio, transform.position, GlobalAudioReference.instance.GetEffectsVolume());
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, blastRadius);
 
@@ -80,7 +80,8 @@ public class Projectile : MonoBehaviour
                         _damage = 10;
                     }
                     
-                } else
+                } 
+                else
                 {
                     //Reduced damage for author of rocket to encourage rocket jumping
                     _damage = 5;
@@ -100,10 +101,7 @@ public class Projectile : MonoBehaviour
                     {
                         //Wasn't a bot either!
                     }
-                    
                 }
-
-
                 //print(_playerHit.name + " was " + distanceFromExplosion + " from explosion and took " + _damage + " damage");
             }
         }

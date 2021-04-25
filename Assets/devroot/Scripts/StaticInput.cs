@@ -142,6 +142,10 @@ public static class StaticInput
         return pause;
     }
 
+    /// <summary>
+    /// Returns if player has pressed the chat button
+    /// </summary>
+    /// <returns> Boolean - If player pressing chat key </returns>
     public static bool GetChatDown()
     {
         return chatDown;

@@ -17,41 +17,55 @@ public class GamePreferencesManager : MonoBehaviour
         LoadPrefs();
     }
 
+    //Hook to save preferences on quit
     private void OnApplicationQuit()
     {
         SavePrefs();
     }
 
+    //Save preferences to the registry
+    //Also called by menu back button
     public void SavePrefs()
     {
-        if (!GlobalAudioReference.instance)
-            return;
+        if (GlobalAudioReference.instance)
+        {
+            PlayerPrefs.SetFloat(MasterVolumeKey, GlobalAudioReference.instance.GetMasterVolume());
+            PlayerPrefs.SetFloat(EffectsVolumeKey, GlobalAudioReference.instance.GetEffectsVolume());
+        }
 
-        PlayerPrefs.SetFloat(MasterVolumeKey, GlobalAudioReference.instance.GetMasterVolume());
+        if (VideoSettings.instance)
+        {
+            PlayerPrefs.SetInt(FullscreenKey, VideoSettings.instance.GetFullscreen());
+            PlayerPrefs.SetInt(ResolutionKey, VideoSettings.instance.GetResolution());
+        }
 
-        if (!VideoSettings.instance)
-            return;
-
-        
-        PlayerPrefs.SetInt(FullscreenKey, VideoSettings.instance.GetFullscreen());
-        PlayerPrefs.SetInt(ResolutionKey, VideoSettings.instance.GetResolution());
         PlayerPrefs.Save();
     }
 
+    //Load saved preferences from registry
     public void LoadPrefs()
     {
-        if (!GlobalAudioReference.instance)
-            return;
+        if (GlobalAudioReference.instance)
+        {
+            //To make code neater
+            var GAR = GlobalAudioReference.instance;
 
-        GlobalAudioReference.instance.SetMasterVolume(PlayerPrefs.GetFloat(MasterVolumeKey, 0.5f));
+            GAR.SetMasterVolume(PlayerPrefs.GetFloat(MasterVolumeKey, GAR.GetMasterVolume()));
+            GAR.SetEffectsVolume(PlayerPrefs.GetFloat(EffectsVolumeKey, GAR.GetEffectsVolume()));
+        }
 
-        if (!VideoSettings.instance)
-            return;
+        if (VideoSettings.instance)
+        {
+            bool fsEnable = PlayerPrefs.GetInt(FullscreenKey, 0) != 0;
 
-        bool fsEnable = PlayerPrefs.GetInt(FullscreenKey, 0) == 0 ? false : true;
+            VideoSettings.instance.ChangeFullscreen(fsEnable);
+            VideoSettings.instance.ChangeResolution(PlayerPrefs.GetInt(ResolutionKey, 0));
+        }
+    }
 
-        VideoSettings.instance.ChangeFullscreen(fsEnable);
-        VideoSettings.instance.ChangeResolution(PlayerPrefs.GetInt(ResolutionKey, 0));
-
+    //Delete all saved preferences
+    public void DeletePrefs()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

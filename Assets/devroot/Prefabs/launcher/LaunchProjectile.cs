@@ -67,7 +67,7 @@ public class LaunchProjectile : MonoBehaviour
         launchObject = (GameObject)Instantiate(launchEffect, transform.position, transform.rotation);
         
         //Plays audio for launch
-        AudioSource.PlayClipAtPoint(soundEffects[0], transform.position);
+        AudioSource.PlayClipAtPoint(soundEffects[0], transform.position, GlobalAudioReference.instance.GetEffectsVolume());
 
         //Creates rocket at top of launcher
         GameObject projectile = Instantiate(projectilePrefab, adjustedPosition, transform.rotation);

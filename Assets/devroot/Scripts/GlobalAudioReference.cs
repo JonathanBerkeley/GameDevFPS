@@ -10,6 +10,7 @@ using UnityEngine;
 public class GlobalAudioReference : MonoBehaviour
 {
     public static float masterVolume = 0.5f;
+    public static float effectsVolume = 0.5f;
 
     private AudioListener currentAudioListener;
     public static GlobalAudioReference instance;
@@ -39,9 +40,19 @@ public class GlobalAudioReference : MonoBehaviour
         AudioListener.volume = _vol;
     }
 
+    public void SetEffectsVolume(float _vol)
+    {
+        effectsVolume = _vol;
+    }
+
     public float GetMasterVolume()
     {
         return masterVolume;
+    }
+
+    public float GetEffectsVolume()
+    {
+        return effectsVolume;
     }
 
     
