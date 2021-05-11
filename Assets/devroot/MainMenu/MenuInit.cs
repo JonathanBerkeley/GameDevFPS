@@ -29,6 +29,9 @@ public class MenuInit : MonoBehaviour
     //For resetting camera speed
     private float previousCameraSpeed = 0.0f;
 
+    //Find audio listener in scene (there should only be one)
+    private AudioListener listener;
+
     void Awake()
     {
         //Make this a singleton class
@@ -45,6 +48,7 @@ public class MenuInit : MonoBehaviour
 
     void Start()
     {
+        listener = GameObject.FindObjectOfType<AudioListener>();
         mainMenu.SetActive(true);
         settingsMenu.SetActive(false);
         playMenu.SetActive(false);
@@ -205,9 +209,19 @@ public class MenuInit : MonoBehaviour
     void MenuClickAudio()
     {
         //Figures out menu camera position and plays sound at that location
+        /* Legacy code
         Vector3 currentCameraPosition = Camera.main.transform.position;
         currentCameraPosition = (0.9f * currentCameraPosition) + (0.1f * transform.position);
         AudioSource.PlayClipAtPoint(clickAudio, currentCameraPosition, menuAudioVolume);
+        */
+        if (listener != null)
+        {
+            AudioSource.PlayClipAtPoint(clickAudio,
+                listener.transform.position,
+                menuAudioVolume
+            );
+        }
+            
     }
 
     public AudioClip GetClickAudio()

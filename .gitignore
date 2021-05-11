@@ -5,6 +5,10 @@
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
+/[Bb]uild32/
+/[Bb]uild32FS/
+/[Bb]uildDBG/
+/[Bb]uildWEBGL/
 /[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
