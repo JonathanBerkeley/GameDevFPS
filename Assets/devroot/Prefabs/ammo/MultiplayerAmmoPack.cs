@@ -26,7 +26,10 @@ public class MultiplayerAmmoPack : MonoBehaviour
             try 
             {
                 collision.gameObject.GetComponent<MultiplayerStats>().IncreaseAmmo(resupplyAmount);
-            } catch { }
+            } 
+            catch 
+            { 
+            }
 
             StartCoroutine(RespawnAmmoPack());
         }

@@ -72,10 +72,10 @@ public class GameManager : MonoBehaviour
                 , _rotation);
             PlayerID.AssignNewID(_player);
         }
-
-        _player.GetComponent<PlayerManager>().id = _id;
-        _player.GetComponent<PlayerManager>().username = _username;
-        players.Add(_id, _player.GetComponent<PlayerManager>());
+        PlayerManager playerManager = _player.GetComponent<PlayerManager>();
+        playerManager.id = _id;
+        playerManager.username = _username;
+        players.Add(_id, playerManager);
     }
 
     public void CreateProjectile(int _id, Vector3 _location, Quaternion _rotation)

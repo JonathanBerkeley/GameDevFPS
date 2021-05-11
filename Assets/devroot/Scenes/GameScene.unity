@@ -4940,7 +4940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f62fe2a34eaf9429a294f61e6a873b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceNoFog: 0
+  forceNoFog: 1
   forceFog: 0
 --- !u!4 &1228994565
 Transform:

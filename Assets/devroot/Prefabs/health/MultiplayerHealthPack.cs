@@ -27,7 +27,8 @@ public class MultiplayerHealthPack : MonoBehaviour
             try
             {
                 collision.gameObject.GetComponent<MultiplayerStats>().IncreaseHealth(regenAmount);
-            } catch
+            } 
+            catch
             {
             }
             StartCoroutine(RespawnHealthPack());

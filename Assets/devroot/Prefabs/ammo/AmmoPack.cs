@@ -25,7 +25,9 @@ public class AmmoPack : MonoBehaviour
             try
             {
                 collision.gameObject.GetComponent<PlayerStats>().IncreaseAmmo(resupplyAmount);
-            } catch {
+            } 
+            catch 
+            {
                 // Wasn't a player
             }
             
