@@ -21,6 +21,8 @@ public class PlayerStats : MonoBehaviour
     public Text respawnText;
 
     public Component[] disableOnRespawnAwait;
+    public AudioClip hitSound;
+    public int bleedEffectThreshold = 35;
 
     private SpawnHandler spawnHandler;
     private bool awaitingRespawn;
@@ -114,15 +116,32 @@ public class PlayerStats : MonoBehaviour
         {
             this.health += ht;
         }
+
+        if (this.health > bleedEffectThreshold)
+        {
+            if (AfterEffects.instance != null)
+                AfterEffects.instance.SetVignette(false);
+        }
     }
 
-    public void DecreaseHealth(int ht)
+    public bool DecreaseHealth(int ht)
     {
         this.health -= ht;
+
+        // PostProcessing vignette bleed effect
+        if (this.health < bleedEffectThreshold)
+        {
+            if (AfterEffects.instance != null)
+                AfterEffects.instance.SetVignette(true);
+        }
+
         if (this.health < 1)
         {
             Die();
+            return true;
         }
+
+        return false;
     }
 
     //Code triggered on death
@@ -151,6 +170,8 @@ public class PlayerStats : MonoBehaviour
         awaitingRespawn = false;
         uiCanvas.SetActive(true);
         deathPanel.SetActive(false);
+        if (AfterEffects.instance != null)
+            AfterEffects.instance.SetVignette(false);
 
         foreach (MonoBehaviour mb in disableOnRespawnAwait)
         {

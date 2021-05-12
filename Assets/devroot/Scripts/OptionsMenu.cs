@@ -8,8 +8,10 @@ public class OptionsMenu : MonoBehaviour
     public Button[] mainTabs;
     public int defaultSelected = 0;
     public GameObject[] innerMenus;
+    public GameObject menuMusicBtn;
 
     private int _currentlySelected;
+
     void Start()
     {
         if (defaultSelected >= mainTabs.Length)
@@ -42,8 +44,10 @@ public class OptionsMenu : MonoBehaviour
             Slider[] audioSliders = innerMenus[1].GetComponentsInChildren<Slider>(); //Obtains the references to sliders
             audioSliders[0].value = GlobalAudioReference.instance.GetMasterVolume(); //Master volume
             audioSliders[1].value = GlobalAudioReference.instance.GetEffectsVolume(); //Effects volume
-        }
             
+            menuMusicBtn.GetComponentInChildren<Toggle>()
+                .SetIsOnWithoutNotify(MusicHandler.MusicSetting); //Main menu music setting
+        }
     }
 
     //Referenced dynamically by volume slider

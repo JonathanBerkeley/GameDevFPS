@@ -19,4 +19,9 @@ public class MenuCamera : MonoBehaviour
         this.rotateSpeed = speed;
         return _previous;
     }
+
+    public float GetCameraSpeed()
+    {
+        return rotateSpeed;
+    }
 }

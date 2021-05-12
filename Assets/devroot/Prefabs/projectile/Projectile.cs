@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour
     public float blastForce = 2000.0f;
     public GameObject explosionEffect;
     public AudioClip explosionAudio;
+    public AudioClip hitSound;
 
     private int id;
     private float countdown;
@@ -60,8 +61,8 @@ public class Projectile : MonoBehaviour
                 float distanceFromExplosion = Vector3.Distance(transform.position, rb.transform.position);
                 GameObject _playerHit = rb.transform.root.gameObject;
                 int _damage = 0;
-                
-                if (PlayerID.GetIDByGameObject(rb.gameObject) != this.id)
+                int _id = PlayerID.GetIDByGameObject(rb.gameObject);
+                if (_id != this.id)
                 {
                     if (distanceFromExplosion < 2.0f)
                     {
@@ -79,36 +80,50 @@ public class Projectile : MonoBehaviour
                     {
                         _damage = 10;
                     }
-                    
                 } 
                 else
                 {
                     //Reduced damage for author of rocket to encourage rocket jumping
                     _damage = 5;
                 }
-                try
+
+                //Decrease health of hit player/bot
+                PlayerStats _ps;
+                _playerHit.TryGetComponent(out _ps);
+                if (_ps != null)
                 {
-                    _playerHit.GetComponent<PlayerStats>().DecreaseHealth(_damage);
+                    _ps.DecreaseHealth(_damage);
                 }
-                catch
+                else
                 {
-                    //Wasn't a player
-                    try
+                    BotStats _bs;
+                    _playerHit.TryGetComponent(out _bs);
+
+                    if (_bs != null)
                     {
-                        _playerHit.GetComponent<BotStats>().DecreaseHealth(_damage);
-                    }
-                    catch
-                    {
-                        //Wasn't a bot either!
+                        _bs.DecreaseHealth(_damage);
                     }
                 }
-                //print(_playerHit.name + " was " + distanceFromExplosion + " from explosion and took " + _damage + " damage");
+
+                PlaySound(_damage, _id);
             }
         }
         
         //Cleanup for efficiency
         Destroy(explosionObject, 3);
         Destroy(gameObject);
+    }
+
+    private void PlaySound(int _dmg, int _id)
+    {
+        if (_dmg < 1 || this.id == _id)
+            return;
+
+        if (this.id == PlayerPassport.MyID && GlobalAudioReference.instance != null)
+        {
+            Vector3 audioListener = FindObjectOfType<AudioListener>().transform.position;
+            AudioSource.PlayClipAtPoint(hitSound, audioListener, GlobalAudioReference.instance.GetEffectsVolume());
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -18,6 +18,8 @@ public class MultiplayerStats : MonoBehaviour
 
     public Component[] disableOnRespawnAwait;
 
+    public int bleedEffectThreshold = 35;
+
     private SpawnHandler spawnHandler;
     private bool awaitingRespawn;
     private float respawnCachedTimer;
@@ -143,6 +145,12 @@ public class MultiplayerStats : MonoBehaviour
         {
             this.health += ht;
         }
+
+        if (this.health > bleedEffectThreshold)
+        {
+            if (AfterEffects.instance != null)
+                AfterEffects.instance.SetVignette(false);
+        }
     }
 
     public void DecreaseHealth(int ht)
@@ -151,6 +159,13 @@ public class MultiplayerStats : MonoBehaviour
         if (this.health < 1)
         {
             Die();
+        }
+
+        // PostProcessing vignette bleed effect
+        if (this.health < bleedEffectThreshold)
+        {
+            if (AfterEffects.instance != null)
+                AfterEffects.instance.SetVignette(true);
         }
     }
 
@@ -190,6 +205,8 @@ public class MultiplayerStats : MonoBehaviour
         this.ammo = cachedAmmo;
         awaitingRespawn = false;
         uiCanvas.SetActive(true);
+        if (AfterEffects.instance != null)
+            AfterEffects.instance.SetVignette(false);
         /*
         foreach (GameObject go in _disabledComponents.GetObjectReferences())
         {

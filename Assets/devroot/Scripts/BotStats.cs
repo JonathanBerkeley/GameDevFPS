@@ -83,13 +83,16 @@ public class BotStats : MonoBehaviour
         }
     }
 
-    public void DecreaseHealth(int ht)
+    public bool DecreaseHealth(int ht)
     {
         this.health -= ht;
         if (this.health < 1)
         {
             Die();
+            return true;
         }
+
+        return false;
     }
 
     private void Die()

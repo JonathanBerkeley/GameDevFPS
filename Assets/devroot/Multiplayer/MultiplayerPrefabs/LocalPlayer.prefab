@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 1502657340879800632}
   - component: {fileID: 8981319656384484796}
   m_Layer: 9
-  m_Name: LocalPlayer2
+  m_Name: LocalPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 36bce9ab6cae8ce43962938466458044, type: 2}
+  - {fileID: 2100000, guid: b95cc0b94b86c624d9476c55fc3bbbe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -253,6 +253,7 @@ MonoBehaviour:
   - {fileID: 5302357252993545004}
   - {fileID: 6834351985637191503}
   - {fileID: 5302357253909606605}
+  bleedEffectThreshold: 40
 --- !u!1 &1879644738568863654
 GameObject:
   m_ObjectHideFlags: 0

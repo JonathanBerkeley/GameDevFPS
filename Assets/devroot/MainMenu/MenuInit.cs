@@ -102,6 +102,7 @@ public class MenuInit : MonoBehaviour
         mainMenu.SetActive(false);
         settingsMenu.SetActive(false);
         playMenu.SetActive(true);
+        previousCameraSpeed = cameraScript.GetCameraSpeed();
     }
 
     void SettingsButtonClicked()
@@ -179,6 +180,7 @@ public class MenuInit : MonoBehaviour
         settingsMenu.SetActive(false);
         playMenu.SetActive(false);
         mainMenu.SetActive(true);
+        GamePreferencesManager.instance.SavePrefs(); // Saves settings to registry
         cameraScript.SetRotateSpeed(previousCameraSpeed);
     }
 

@@ -1357,6 +1357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 470586934}
   - component: {fileID: 470586933}
+  - component: {fileID: 470586935}
   m_Layer: 13
   m_Name: PostProcessing
   m_TagString: Untagged
@@ -1395,6 +1396,21 @@ Transform:
   m_Father: {fileID: 1104477234}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &470586935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470586932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a560fe4bfbef049922b6d20a33404d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minVignetteIntensity: 0.3
+  maxVignetteIntensity: 0.7
+  vignetteRate: 0.03
 --- !u!1 &472571082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1623,7 +1639,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 20.699951, y: 23.200012}
+  m_AnchoredPosition: {x: 20.699951, y: 23.200073}
   m_SizeDelta: {x: 153.95386, y: 153.95386}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &499371051
@@ -8600,6 +8616,11 @@ PrefabInstance:
         type: 3}
       propertyPath: respawnTimer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973234945582935032, guid: 67a50bc6189cdcb4982514067e420751,
+        type: 3}
+      propertyPath: bleedEffectThreshold
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67a50bc6189cdcb4982514067e420751, type: 3}

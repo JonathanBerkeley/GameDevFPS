@@ -6,14 +6,21 @@ using UnityEngine;
 //Made following Unity official tutorial https://www.youtube.com/watch?v=uD7y4T4PVk0
 public class GamePreferencesManager : MonoBehaviour
 {
+    public static GamePreferencesManager instance;
+
     const string MasterVolumeKey = "MasterVolume";
     const string EffectsVolumeKey = "EffectsVolume";
     const string FullscreenKey = "Fullscreen";
-    const string FogKey = "Fog";
+    const string MusicKey = "Music";
     const string ResolutionKey = "Resolution";
 
     private void Start()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+
         LoadPrefs();
     }
 
@@ -32,6 +39,8 @@ public class GamePreferencesManager : MonoBehaviour
             PlayerPrefs.SetFloat(MasterVolumeKey, GlobalAudioReference.instance.GetMasterVolume());
             PlayerPrefs.SetFloat(EffectsVolumeKey, GlobalAudioReference.instance.GetEffectsVolume());
         }
+
+        PlayerPrefs.SetInt(MusicKey, MusicHandler.MusicSetting ? 1 : 0); //Music on main menu setting
 
         if (VideoSettings.instance)
         {
@@ -53,6 +62,8 @@ public class GamePreferencesManager : MonoBehaviour
             GAR.SetMasterVolume(PlayerPrefs.GetFloat(MasterVolumeKey, GAR.GetMasterVolume()));
             GAR.SetEffectsVolume(PlayerPrefs.GetFloat(EffectsVolumeKey, GAR.GetEffectsVolume()));
         }
+
+        MusicHandler.MusicSetting = PlayerPrefs.GetInt(MusicKey, 1) == 1; //Music on main menu setting
 
         if (VideoSettings.instance)
         {
