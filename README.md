@@ -1,2 +1,2 @@
-# Inertia
-A multiplayer unity game
+# Inertia client
+Multiplayer client base & combat mode for Inertia
